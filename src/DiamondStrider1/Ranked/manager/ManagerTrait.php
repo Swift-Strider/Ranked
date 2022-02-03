@@ -34,11 +34,15 @@ namespace DiamondStrider1\Ranked\manager;
 trait ManagerTrait
 {
     private static $instance;
+
     public static function get(): self
     {
         if (!isset(self::$instance)) {
             self::$instance = new self;
+            self::$instance->onLoad();
         }
         return self::$instance;
     }
+
+    private abstract function onLoad(): void;
 }
