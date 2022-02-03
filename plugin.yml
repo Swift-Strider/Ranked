@@ -1,0 +1,7 @@
+name: Ranked
+author: DiamondStrider1
+description: Manage your players' permissions
+
+main: DiamondStrider1\Ranked\Loader
+version: 0.0.1
+api: 4.0.0
