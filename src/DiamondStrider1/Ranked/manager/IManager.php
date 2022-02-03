@@ -26,19 +26,12 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked;
+namespace DiamondStrider1\Ranked\manager;
 
-class Loader
+/**
+ * A singleton that implements a feature of this plugin
+ */
+interface IManager
 {
-    private static self $instance;
-
-    public function onLoad()
-    {
-        self::$instance = $this;
-    }
-
-    public static function get(): self
-    {
-        return self::$instance;
-    }
+    public static function get(): static;
 }

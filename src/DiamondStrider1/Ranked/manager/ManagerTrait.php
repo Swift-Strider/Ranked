@@ -26,19 +26,19 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked;
+namespace DiamondStrider1\Ranked\manager;
 
-class Loader
+/**
+ * This trait implements Manager
+ */
+trait ManagerTrait
 {
-    private static self $instance;
-
-    public function onLoad()
-    {
-        self::$instance = $this;
-    }
-
+    private static $instance;
     public static function get(): self
     {
+        if (!isset(self::$instance)) {
+            self::$instance = new self;
+        }
         return self::$instance;
     }
 }
