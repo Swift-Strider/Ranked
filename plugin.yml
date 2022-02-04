@@ -5,3 +5,11 @@ description: Manage your players' permissions
 main: DiamondStrider1\Ranked\Loader
 version: 0.0.1
 api: 4.0.0
+
+permissions:
+  ranked.ranks.command:
+    default: op
+  ranked.ranks.command.add:
+    default: op
+  ranked.ranks.command.remove:
+    default: op

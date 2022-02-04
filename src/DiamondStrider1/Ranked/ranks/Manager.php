@@ -26,27 +26,21 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked;
+namespace DiamondStrider1\Ranked\ranks;
 
-use DiamondStrider1\Ranked;
-use pocketmine\plugin\PluginBase;
+use DiamondStrider1\Ranked\Loader;
+use DiamondStrider1\Ranked\manager\IManager;
+use DiamondStrider1\Ranked\manager\ManagerTrait;
 
-class Loader extends PluginBase
+class Manager implements IManager
 {
-    private static self $instance;
+    use ManagerTrait;
+    private Loader $plugin;
 
     public function onLoad(): void
     {
-        self::$instance = $this;
-    }
-
-    public function onEnable(): void
-    {
-        Ranked\ranks\Manager::get();
-    }
-
-    public static function get(): self
-    {
-        return self::$instance;
+        $this->plugin = Loader::get();
+        $cm = $this->plugin->getServer()->getCommandMap();
+        (new RankCommand())->registerAll($cm);
     }
 }

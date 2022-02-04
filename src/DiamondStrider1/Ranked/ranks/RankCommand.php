@@ -26,27 +26,31 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked;
+namespace DiamondStrider1\Ranked\ranks;
 
-use DiamondStrider1\Ranked;
-use pocketmine\plugin\PluginBase;
+use DiamondStrider1\Ranked\command\attributes\CommandSettings;
+use DiamondStrider1\Ranked\command\CommandBase;
+use pocketmine\command\CommandSender;
 
-class Loader extends PluginBase
+class RankCommand extends CommandBase
 {
-    private static self $instance;
-
-    public function onLoad(): void
+    #[CommandSettings(
+        name: 'rank_add',
+        permission: 'ranked.ranks.command.add',
+        description: 'Add a new rank to your server!',
+        usageMessage: '/rank_add <name: string>',
+    )]
+    public function addRank(CommandSender $sender, string $name): void
     {
-        self::$instance = $this;
     }
 
-    public function onEnable(): void
+    #[CommandSettings(
+        name: 'rank_remove',
+        permission: 'ranked.ranks.command.remove',
+        description: 'Remove a rank from your server!',
+        usageMessage: '/rank_remove <name: string>',
+    )]
+    public function removeRank(CommandSender $sender, string $name): void
     {
-        Ranked\ranks\Manager::get();
-    }
-
-    public static function get(): self
-    {
-        return self::$instance;
     }
 }
