@@ -1,7 +1,14 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
+
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.5",
         "phpstan/phpstan": "^1.4",
         "pocketmine/pocketmine-mp": "^4.0"
+    },
+
+    "scripts": {
+        "phpstan": "vendor/bin/phpstan analyze src",
+        "fmt": "vendor/bin/php-cs-fixer fix"
     }
 }

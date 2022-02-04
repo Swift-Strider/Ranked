@@ -19,7 +19,7 @@ jobs:
       - name: phpstan analyze
         run: |
           composer install --ignore-platform-reqs
-          npm run phpstan
+          composer run -- phpstan
   style-check:
     name: Style Check
     runs-on: ubuntu-latest
@@ -34,4 +34,4 @@ jobs:
           php-version: ${{matrix.php-version}}
       - run: |
           composer install --ignore-platform-reqs
-          npm run fmt -- --dry-run --diff
+          composer run -- fmt --dry-run --diff
