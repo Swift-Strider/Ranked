@@ -7,7 +7,7 @@
  *  \ \   _  _\ \   __  \ \  \\ \  \ \   ___  \ \  \_|/_\ \  \ \\ \
  *   \ \  \\  \\ \  \ \  \ \  \\ \  \ \  \\ \  \ \  \_|\ \ \  \_\\ \
  *    \ \__\\ _\\ \__\ \__\ \__\\ \__\ \__\\ \__\ \_______\ \_______\
- *     \|__|\|__|\|__|\|__|\|__| \|__|\|__| \|__|\|_______|\|_______|
+ *     \|__|\|__|\|__|\|__|\|__| \|__|\|__| \|__|\|_______|\|_______|.
  *
  *    Copyright [2022] [DiamondStrider1]
  *
@@ -29,7 +29,7 @@ declare(strict_types=1);
 namespace DiamondStrider1\Ranked\manager;
 
 /**
- * This trait implements Manager
+ * This trait implements Manager.
  */
 trait ManagerTrait
 {
@@ -38,11 +38,12 @@ trait ManagerTrait
     public static function get(): self
     {
         if (!isset(self::$instance)) {
-            self::$instance = new self;
+            self::$instance = new self();
             self::$instance->onLoad();
         }
+
         return self::$instance;
     }
 
-    private abstract function onLoad(): void;
+    abstract private function onLoad(): void;
 }

@@ -7,7 +7,7 @@
  *  \ \   _  _\ \   __  \ \  \\ \  \ \   ___  \ \  \_|/_\ \  \ \\ \
  *   \ \  \\  \\ \  \ \  \ \  \\ \  \ \  \\ \  \ \  \_|\ \ \  \_\\ \
  *    \ \__\\ _\\ \__\ \__\ \__\\ \__\ \__\\ \__\ \_______\ \_______\
- *     \|__|\|__|\|__|\|__|\|__| \|__|\|__| \|__|\|_______|\|_______|
+ *     \|__|\|__|\|__|\|__|\|__| \|__|\|__| \|__|\|_______|\|_______|.
  *
  *    Copyright [2022] [DiamondStrider1]
  *
@@ -29,7 +29,7 @@ declare(strict_types=1);
 namespace DiamondStrider1\Ranked\manager;
 
 /**
- * A singleton that implements a feature of this plugin
+ * A singleton that implements a feature of this plugin.
  */
 interface IManager
 {
