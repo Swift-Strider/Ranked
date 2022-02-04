@@ -21,7 +21,7 @@ jobs:
           composer install --ignore-platform-reqs
           npm run phpstan
   style-check:
-    name: Style Ccheck
+    name: Style Check
     runs-on: ubuntu-latest
     strategy:
       matrix:
