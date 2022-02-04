@@ -2,8 +2,8 @@
   "name": "Ranked",
   "description": "This is for the server admin who doesn't want to search around for all of the different permission that exist or don't want to guess what permissions their giving away.",
   "scripts": {
-    "phpstan": "vendor\\bin\\phpstan analyze src",
-    "fmt": "vendor\\bin\\php-cs-fixer fix"
+    "phpstan": "node scripts.js phpstan",
+    "fmt": "node scripts.js fmt"
   },
   "repository": {
     "type": "git",
