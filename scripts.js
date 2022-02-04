@@ -13,4 +13,4 @@ try {
     execSync(commands[process.argv[2]] + process.argv.slice(3).join(" "), {
         stdio: "inherit"
     });
-} catch ($e) { /** Ignore execSync errors. */ }
+} catch ($e) { process.exit(1); }
