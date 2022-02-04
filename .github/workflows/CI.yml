@@ -1,0 +1,37 @@
+# Shout Out to SOFe\Capital for their workflow file.
+name: CI
+on:
+  - push
+  - pull_request
+jobs:
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version:
+          - "8.0"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{matrix.php-version}}
+      - name: phpstan analyze
+        run: |
+          composer install --ignore-platform-reqs
+          ./vendor/bin/phpstan analyze src
+  style-check:
+    name: Style Ccheck
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version:
+          - "8.0"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{matrix.php-version}}
+      - run: |
+          composer install --ignore-platform-reqs
+          ./vendor/bin/php-cs-fixer fix --dry-run --diff
