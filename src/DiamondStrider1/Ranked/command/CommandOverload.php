@@ -106,10 +106,11 @@ class CommandOverload extends Command implements PluginOwned
             return;
         }
 
-        $args = new CommandArgs($args);
+        $args = new CommandArgs($args, $label);
         $params = [$sender];
         foreach ($this->params as $p) {
             try {
+                $args->prepare();
                 $params[] = $p->get($args);
             } catch (ValidationException $e) {
                 $sender->sendMessage($e->getMessage());

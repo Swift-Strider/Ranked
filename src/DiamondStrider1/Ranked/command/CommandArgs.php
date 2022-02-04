@@ -38,6 +38,7 @@ class CommandArgs
      */
     public function __construct(
         private array $args,
+        private string $label,
     ) {
     }
 
@@ -76,7 +77,19 @@ class CommandArgs
             $this->index
         ));
 
-        $newMessage = "§4/... {$begin} §l>>>§r§4 {$middle} §l<<<§r§4 {$end}\n{$message}";
+        $newMessage = "§c/{$this->label} ";
+        if (!empty($begin)) {
+            $newMessage .= "{$begin} ";
+        }
+        $newMessage .= '§l>>>§r§c ';
+        if (!empty($middle)) {
+            $newMessage .= "{$middle} ";
+        }
+        $newMessage .= '§l<<<§r§c';
+        if (!empty($end)) {
+            $newMessage .= " {$end}";
+        }
+        $newMessage .= "\n§c{$message}";
 
         throw new ValidationException($newMessage);
     }
