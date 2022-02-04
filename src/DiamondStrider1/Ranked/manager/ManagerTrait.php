@@ -35,6 +35,9 @@ trait ManagerTrait
 {
     private static self $instance;
 
+    /**
+     * @throws ManagerLoadFailedException
+     */
     public static function get(): self
     {
         if (!isset(self::$instance)) {
@@ -45,5 +48,18 @@ trait ManagerTrait
         return self::$instance;
     }
 
+    /**
+     * @throws ManagerLoadFailedException
+     *
+     * @return never
+     */
+    private function fail(): void
+    {
+        throw new ManagerLoadFailedException(static::class.' failed to load!');
+    }
+
+    /**
+     * @throws ManagerLoadFailedException
+     */
     abstract private function onLoad(): void;
 }
