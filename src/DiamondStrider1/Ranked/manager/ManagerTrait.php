@@ -33,7 +33,7 @@ namespace DiamondStrider1\Ranked\manager;
  */
 trait ManagerTrait
 {
-    private static $instance;
+    private static self $instance;
 
     public static function get(): self
     {

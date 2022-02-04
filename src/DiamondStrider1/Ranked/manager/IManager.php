@@ -33,5 +33,5 @@ namespace DiamondStrider1\Ranked\manager;
  */
 interface IManager
 {
-    public static function get(): static;
+    public static function get(): self;
 }
