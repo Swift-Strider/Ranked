@@ -26,35 +26,48 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked;
+namespace DiamondStrider1\Ranked\config;
 
-use DiamondStrider1\Ranked;
-use DiamondStrider1\Ranked\manager\ManagerLoadFailedException;
-use pocketmine\plugin\PluginBase;
+use DiamondStrider1\DiamondDatas\ConfigException;
+use DiamondStrider1\DiamondDatas\NeoConfig;
+use DiamondStrider1\Ranked\Loader;
+use DiamondStrider1\Ranked\manager\IManager;
+use DiamondStrider1\Ranked\manager\ManagerTrait;
+use Logger;
+use PrefixedLogger;
 
-class Loader extends PluginBase
+class Manager implements IManager
 {
-    private static self $instance;
+    use ManagerTrait;
+
+    private Loader $plugin;
+    private Logger $logger;
+
+    /** @phpstan-var NeoConfig<Config> */
+    private NeoConfig $neoConfig;
 
     public function onLoad(): void
     {
-        self::$instance = $this;
-    }
+        $this->plugin = Loader::get();
+        $this->logger = new PrefixedLogger($this->plugin->getLogger(), 'Config');
+        $filename = $this->plugin->getDataFolder().'config.yml';
+        $this->neoConfig = new NeoConfig($filename, Config::class);
 
-    public function onEnable(): void
-    {
         try {
-            Ranked\config\Manager::get();
-            Ranked\ranks\Manager::get();
-        } catch (ManagerLoadFailedException $e) {
-            $this->getLogger()->critical('Detected Manager Failure: '.$e->getMessage());
-            $this->getLogger()->critical('Disabling Self Now.');
-            $this->getServer()->getPluginManager()->disablePlugin($this);
+            $this->getConfig();
+        } catch (ConfigException $e) {
+            $this->logger->emergency("Error Loading Config\n".$e->getMessage());
+            $this->fail();
         }
     }
 
-    public static function get(): self
+    public function getConfig(): Config
     {
-        return self::$instance;
+        return $this->neoConfig->getObject();
+    }
+
+    public function setConfig(Config $config): void
+    {
+        $this->neoConfig->setObject($config);
     }
 }

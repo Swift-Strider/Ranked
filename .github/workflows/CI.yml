@@ -16,10 +16,15 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{matrix.php-version}}
+      - name: Clone Swift-Strider/DiamondDatas
+        uses: GuillaumeFalourd/clone-github-repo-action@v1
+        with:
+          owner: 'Swift-Strider'
+          repository: 'DiamondDatas'
       - name: phpstan analyze
         run: |
           composer install --ignore-platform-reqs
-          composer run -- phpstan
+          composer run -- phpstan -c .github/ci.phpstan.neon
   style-check:
     name: Style Check
     runs-on: ubuntu-latest

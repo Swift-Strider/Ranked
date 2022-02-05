@@ -26,35 +26,14 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked;
+namespace DiamondStrider1\Ranked\config;
 
-use DiamondStrider1\Ranked;
-use DiamondStrider1\Ranked\manager\ManagerLoadFailedException;
-use pocketmine\plugin\PluginBase;
+use DiamondStrider1\DiamondDatas\metadata\IDefaultProvider;
 
-class Loader extends PluginBase
+class Config implements IDefaultProvider
 {
-    private static self $instance;
-
-    public function onLoad(): void
+    public static function getDefaults(): array
     {
-        self::$instance = $this;
-    }
-
-    public function onEnable(): void
-    {
-        try {
-            Ranked\config\Manager::get();
-            Ranked\ranks\Manager::get();
-        } catch (ManagerLoadFailedException $e) {
-            $this->getLogger()->critical('Detected Manager Failure: '.$e->getMessage());
-            $this->getLogger()->critical('Disabling Self Now.');
-            $this->getServer()->getPluginManager()->disablePlugin($this);
-        }
-    }
-
-    public static function get(): self
-    {
-        return self::$instance;
+        return [];
     }
 }
