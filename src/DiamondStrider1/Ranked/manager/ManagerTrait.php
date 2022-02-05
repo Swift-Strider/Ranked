@@ -48,6 +48,11 @@ trait ManagerTrait
         return self::$instance;
     }
 
+    public function dispose(): void
+    {
+        // noop
+    }
+
     /**
      * @throws ManagerLoadFailedException
      *

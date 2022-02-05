@@ -34,4 +34,6 @@ namespace DiamondStrider1\Ranked\manager;
 interface IManager
 {
     public static function get(): self;
+
+    public function dispose(): void;
 }
