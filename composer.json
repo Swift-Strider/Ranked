@@ -6,7 +6,8 @@
         "phpstan/phpstan": "^1.4",
         "pocketmine/pocketmine-mp": "^4.0",
         "sof3/libasynql": "^4.0",
-        "sof3/await-generator": "^3.1"
+        "sof3/await-generator": "^3.1",
+        "sof3/rwlock": "^0.1.0"
     },
 
     "scripts": {

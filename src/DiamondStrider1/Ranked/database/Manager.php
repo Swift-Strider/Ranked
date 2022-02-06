@@ -53,7 +53,10 @@ class Manager implements IManager
             'sqlite' => 'db_stmts/sqlite.sql',
             'mysql' => 'db_stmts/mysql.sql',
         ], true);
-        $this->queryRunner = new QueryRunner($this->database);
+        $this->queryRunner = new QueryRunner(
+            $this->database,
+            'sqlite' === $this->config->type
+        );
         Await::g2c($this->queryRunner->init());
     }
 

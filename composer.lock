@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96a7f4ead110042076f19c2487b86f89",
+    "content-hash": "a377b3cdb80b4e78497c409624ff3bab",
     "packages": [],
     "packages-dev": [
         {
@@ -1982,6 +1982,50 @@
                 "source": "https://github.com/poggit/libasynql/tree/v4.0.1"
             },
             "time": "2021-12-17T16:15:41+00:00"
+        },
+        {
+            "name": "sof3/rwlock",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SOF3/rwlock.php.git",
+                "reference": "79c7593810ee830a076a169b173d8e48dc391465"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SOF3/rwlock.php/zipball/79c7593810ee830a076a169b173d8e48dc391465",
+                "reference": "79c7593810ee830a076a169b173d8e48dc391465",
+                "shasum": ""
+            },
+            "require": {
+                "sof3/await-generator": "^3.1.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SOFe\\RwLock\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "SOFe",
+                    "email": "sofe2038@gmail.com"
+                }
+            ],
+            "description": "Exclusive and Read-write locks for PHP",
+            "support": {
+                "issues": "https://github.com/SOF3/rwlock.php/issues",
+                "source": "https://github.com/SOF3/rwlock.php/tree/0.1.0"
+            },
+            "time": "2021-12-19T05:29:12+00:00"
         },
         {
             "name": "symfony/console",
