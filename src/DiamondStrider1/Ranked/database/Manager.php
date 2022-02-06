@@ -26,21 +26,37 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked\config;
+namespace DiamondStrider1\Ranked\database;
 
-use DiamondStrider1\DiamondDatas\attributes\ObjectType;
-use DiamondStrider1\DiamondDatas\metadata\IDefaultProvider;
-use DiamondStrider1\Ranked\database\Config as DatabaseConfig;
+use DiamondStrider1\Ranked\config\Manager as ConfigManager;
+use DiamondStrider1\Ranked\Loader;
+use DiamondStrider1\Ranked\manager\IManager;
+use DiamondStrider1\Ranked\manager\ManagerTrait;
+use poggit\libasynql\DataConnector;
+use poggit\libasynql\libasynql;
 
-class Config implements IDefaultProvider
+class Manager implements IManager
 {
-    #[ObjectType(DatabaseConfig::class, 'database', 'Database Configuration')]
-    public DatabaseConfig $database;
+    use ManagerTrait;
 
-    public static function getDefaults(): array
+    private Loader $plugin;
+    private Config $config;
+    private DataConnector $database;
+
+    public function onLoad(): void
     {
-        return [
-            'database' => DatabaseConfig::createDefault(),
-        ];
+        $this->plugin = Loader::get();
+        $this->config = ConfigManager::get()->getConfig()->database;
+        $this->database = libasynql::create($this->plugin, $this->config->convertToArray(), [
+            'sqlite' => 'db_stmts/sqlite.sql',
+            'mysql' => 'db_stmts/mysql.sql',
+        ], true);
+    }
+
+    public function dispose(): void
+    {
+        if (isset($this->database)) {
+            $this->database->close();
+        }
     }
 }

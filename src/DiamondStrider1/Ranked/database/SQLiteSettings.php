@@ -26,21 +26,18 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked\config;
+namespace DiamondStrider1\Ranked\database;
 
-use DiamondStrider1\DiamondDatas\attributes\ObjectType;
-use DiamondStrider1\DiamondDatas\metadata\IDefaultProvider;
-use DiamondStrider1\Ranked\database\Config as DatabaseConfig;
+use DiamondStrider1\DiamondDatas\attributes\StringType;
 
-class Config implements IDefaultProvider
+class SQLiteSettings
 {
-    #[ObjectType(DatabaseConfig::class, 'database', 'Database Configuration')]
-    public DatabaseConfig $database;
-
-    public static function getDefaults(): array
-    {
-        return [
-            'database' => DatabaseConfig::createDefault(),
-        ];
+    public function __construct(
+        #[StringType('file', <<<'EOT'
+            The file name of the database in the plugin data folder.
+            You can also put an absolute path here.
+            EOT)]
+        public string $file = '',
+    ) {
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f3aa63fbd0deaf5622e3f0ad7553676",
+    "content-hash": "96a7f4ead110042076f19c2487b86f89",
     "packages": [],
     "packages-dev": [
         {
@@ -1897,6 +1897,91 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "sof3/await-generator",
+            "version": "3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SOF3/await-generator.git",
+                "reference": "ffbb2db5f9be411d8b80be192b528460191cea6a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SOF3/await-generator/zipball/ffbb2db5f9be411d8b80be192b528460191cea6a",
+                "reference": "ffbb2db5f9be411d8b80be192b528460191cea6a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3 || ^8.0"
+            },
+            "require-dev": {
+                "composer/package-versions-deprecated": "1.11.99.1",
+                "infection/infection": "^0.18.2 || ^0.20.2",
+                "phpstan/phpstan": "^0.12.84",
+                "phpunit/phpunit": "^9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SOFe\\AwaitGenerator\\": "await-generator/src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "SOFe",
+                    "email": "sofe2038@gmail.com"
+                }
+            ],
+            "description": "Use async/await in PHP using generators",
+            "support": {
+                "issues": "https://github.com/SOF3/await-generator/issues",
+                "source": "https://github.com/SOF3/await-generator/tree/3.1.1"
+            },
+            "time": "2021-12-14T11:29:18+00:00"
+        },
+        {
+            "name": "sof3/libasynql",
+            "version": "v4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/poggit/libasynql.git",
+                "reference": "a7e844e409166601152347f0acfd91608e93eee4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/poggit/libasynql/zipball/a7e844e409166601152347f0acfd91608e93eee4",
+                "reference": "a7e844e409166601152347f0acfd91608e93eee4",
+                "shasum": ""
+            },
+            "require": {
+                "pocketmine/pocketmine-mp": "^4.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "poggit\\libasynql\\": "libasynql/src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "SOFe",
+                    "email": "sofe2038@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/poggit/libasynql/issues",
+                "source": "https://github.com/poggit/libasynql/tree/v4.0.1"
+            },
+            "time": "2021-12-17T16:15:41+00:00"
         },
         {
             "name": "symfony/console",

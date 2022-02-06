@@ -26,21 +26,21 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked\config;
+namespace DiamondStrider1\Ranked\database;
 
-use DiamondStrider1\DiamondDatas\attributes\ObjectType;
-use DiamondStrider1\DiamondDatas\metadata\IDefaultProvider;
-use DiamondStrider1\Ranked\database\Config as DatabaseConfig;
+use DiamondStrider1\DiamondDatas\attributes\StringType;
 
-class Config implements IDefaultProvider
+class MySQLSettings
 {
-    #[ObjectType(DatabaseConfig::class, 'database', 'Database Configuration')]
-    public DatabaseConfig $database;
-
-    public static function getDefaults(): array
-    {
-        return [
-            'database' => DatabaseConfig::createDefault(),
-        ];
+    public function __construct(
+        #[StringType('host', "The server's address.")]
+        public string $host = '',
+        #[StringType('username', 'I advise you to avoid the "root" user for security reasons.')]
+        public string $username = '',
+        #[StringType('password', "The MySQL user's password.")]
+        public string $password = '',
+        #[StringType('schema', 'The MySQL schema.')]
+        public string $schema = '',
+    ) {
     }
 }
