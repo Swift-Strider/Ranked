@@ -4,7 +4,7 @@
 -- #  { init
 -- #    { ranks
 CREATE TABLE IF NOT EXISTS Ranks(
-    id INT AUTO_INCREMENT,
+    id INT AUTO_INCREMENT NOT NULL,
     name VARCHAR(20) UNIQUE NOT NULL,
     PRIMARY KEY(id)
 );
