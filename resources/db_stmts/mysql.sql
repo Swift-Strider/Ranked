@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS Ranks(
 -- #    }
 -- #    { rankpermissions
 CREATE TABLE IF NOT EXISTS RankPermissions(
-    rank_id INT,
-    permission VARCHAR(50),
+    rank_id INT NOT NULL,
+    permission VARCHAR(50) NOT NULL,
     PRIMARY KEY(rank_id, permission),
     FOREIGN KEY(rank_id)
         REFERENCES Ranks(id)
