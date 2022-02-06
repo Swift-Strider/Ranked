@@ -68,11 +68,4 @@ class QueryRunner
 
         return yield Await::ONCE;
     }
-
-    public function listRankPermissionPairs(): Generator
-    {
-        $this->db->executeSelect('ranked.permissions.list_all', [], yield Await::RESOLVE, yield Await::REJECT);
-
-        return yield Await::ONCE;
-    }
 }
