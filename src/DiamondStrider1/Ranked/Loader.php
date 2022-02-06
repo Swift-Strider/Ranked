@@ -45,6 +45,7 @@ class Loader extends PluginBase
     {
         try {
             Ranked\config\Manager::get();
+            Ranked\database\Manager::get();
             Ranked\ranks\Manager::get();
         } catch (ManagerLoadFailedException $e) {
             $this->getLogger()->critical('Detected Manager Failure: '.$e->getMessage());

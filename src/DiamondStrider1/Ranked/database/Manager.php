@@ -34,6 +34,7 @@ use DiamondStrider1\Ranked\manager\IManager;
 use DiamondStrider1\Ranked\manager\ManagerTrait;
 use poggit\libasynql\DataConnector;
 use poggit\libasynql\libasynql;
+use SOFe\AwaitGenerator\Await;
 
 class Manager implements IManager
 {
@@ -42,6 +43,7 @@ class Manager implements IManager
     private Loader $plugin;
     private Config $config;
     private DataConnector $database;
+    private QueryRunner $queryRunner;
 
     public function onLoad(): void
     {
@@ -51,6 +53,8 @@ class Manager implements IManager
             'sqlite' => 'db_stmts/sqlite.sql',
             'mysql' => 'db_stmts/mysql.sql',
         ], true);
+        $this->queryRunner = new QueryRunner($this->database);
+        Await::g2c($this->queryRunner->init());
     }
 
     public function dispose(): void
