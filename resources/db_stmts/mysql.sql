@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Players(
     player_uuid VARCHAR(50) NOT NULL,
     username TEXT NOT NULL,
     display_name TEXT NOT NULL,
-    PRIMARY KEY(player_uuid),
+    PRIMARY KEY(player_uuid)
 );
 -- #    }
 -- #    { rank_players
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS RankPlayers(
     PRIMARY KEY(rank_id, player_uuid),
     FOREIGN KEY(rank_id)
         REFERENCES Ranks(id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
     FOREIGN KEY(player_uuid)
         REFERENCES Players(player_uuid)
         ON DELETE CASCADE
