@@ -1,6 +1,87 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:.* return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:createRank\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:getById\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:init\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:listPermissions\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:listPlayers\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:listPlayersOfRank\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:listRanks\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:listRanksOfPlayer\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:lock\\(\\) has parameter \\$closure with no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:lock\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:removeRank\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:setPermission\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:setPlayer\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:setPlayerRank\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:unsetPermission\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:unsetPlayer\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:unsetPlayerRank\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
