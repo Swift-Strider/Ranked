@@ -83,7 +83,7 @@ class QueryRunner
         });
     }
 
-    public function getById(string $name): Generator
+    public function getRankId(string $name): Generator
     {
         return yield from $this->lock(function () use ($name): Generator {
             $this->db->executeSelect('ranked.ranks.get', ['name' => $name], yield Await::RESOLVE, yield Await::REJECT);
