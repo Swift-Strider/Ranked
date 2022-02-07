@@ -5,14 +5,14 @@
 -- #    { ranks
 CREATE TABLE IF NOT EXISTS Ranks(
     id INT AUTO_INCREMENT,
-    name VARCHAR(20) UNIQUE NOT NULL,
+    name TEXT UNIQUE NOT NULL,
     PRIMARY KEY(id)
 );
 -- #    }
 -- #    { rankpermissions
 CREATE TABLE IF NOT EXISTS RankPermissions(
     rank_id INT NOT NULL,
-    permission VARCHAR(50) NOT NULL,
+    permission TEXT NOT NULL,
     PRIMARY KEY(rank_id, permission),
     FOREIGN KEY(rank_id)
         REFERENCES Ranks(id)
