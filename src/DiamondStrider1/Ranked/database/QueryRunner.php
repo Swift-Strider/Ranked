@@ -26,6 +26,8 @@ class QueryRunner
         yield from $this->lock(function (): Generator {
             $this->db->executeGeneric('ranked.init.ranks', [], yield Await::RESOLVE, yield Await::REJECT);
             $this->db->executeGeneric('ranked.init.rankpermissions', [], yield Await::RESOLVE, yield Await::REJECT);
+            $this->db->executeGeneric('ranked.init.players', [], yield Await::RESOLVE, yield Await::REJECT);
+            $this->db->executeGeneric('ranked.init.rank_players', [], yield Await::RESOLVE, yield Await::REJECT);
             yield Await::ALL;
         });
     }
@@ -86,6 +88,81 @@ class QueryRunner
     {
         return yield from $this->lock(function () use ($rankId): Generator {
             $this->db->executeSelect('ranked.permissions.list', ['rank_id' => $rankId], yield Await::RESOLVE, yield Await::REJECT);
+
+            return yield Await::ONCE;
+        });
+    }
+
+    public function setPlayer(string $uuid, string $username, string $displayName): Generator
+    {
+        yield from $this->lock(function () use ($uuid, $username, $displayName): Generator {
+            yield from $this->db->executeGeneric('ranked.players.set', [
+                'player_uuid' => $uuid,
+                'username' => $username,
+                'display_name' => $displayName,
+            ], yield Await::RESOLVE, yield Await::REJECT);
+            yield Await::ONCE;
+        });
+    }
+
+    public function unsetPlayer(string $uuid): Generator
+    {
+        yield from $this->lock(function () use ($uuid): Generator {
+            yield from $this->db->executeGeneric('ranked.players.unset', [
+                'player_uuid' => $uuid,
+            ], yield Await::RESOLVE, yield Await::REJECT);
+            yield Await::ONCE;
+        });
+    }
+
+    public function listPlayers(): Generator
+    {
+        return yield from $this->lock(function (): Generator {
+            yield from $this->db->executeSelect('ranked.players.list', [], yield Await::RESOLVE, yield Await::REJECT);
+
+            return yield Await::ONCE;
+        });
+    }
+
+    public function setPlayerRank(int $rank_id, string $player_uuid): Generator
+    {
+        yield from $this->lock(function () use ($rank_id, $player_uuid): Generator {
+            yield from $this->db->executeGeneric('ranked.player_ranks.set', [
+                'rank_id' => $rank_id,
+                'player_uuid' => $player_uuid,
+            ], yield Await::RESOLVE, yield Await::REJECT);
+            yield Await::ONCE;
+        });
+    }
+
+    public function unsetPlayerRank(int $rank_id, string $player_uuid): Generator
+    {
+        yield from $this->lock(function () use ($rank_id, $player_uuid): Generator {
+            yield from $this->db->executeGeneric('ranked.player_ranks.unset', [
+                'rank_id' => $rank_id,
+                'player_uuid' => $player_uuid,
+            ], yield Await::RESOLVE, yield Await::REJECT);
+            yield Await::ONCE;
+        });
+    }
+
+    public function listRanksOfPlayer(string $player_uuid): Generator
+    {
+        return yield from $this->lock(function () use($player_uuid): Generator {
+            yield from $this->db->executeSelect('ranked.player_ranks.list_ranks', [
+                "player_uuid" => $player_uuid,
+            ], yield Await::RESOLVE, yield Await::REJECT);
+
+            return yield Await::ONCE;
+        });
+    }
+
+    public function listPlayersOfRank(string $rank_id): Generator
+    {
+        return yield from $this->lock(function () use($rank_id): Generator {
+            yield from $this->db->executeSelect('ranked.player_ranks.list_players', [
+                "rank_id" => $rank_id,
+            ], yield Await::RESOLVE, yield Await::REJECT);
 
             return yield Await::ONCE;
         });
