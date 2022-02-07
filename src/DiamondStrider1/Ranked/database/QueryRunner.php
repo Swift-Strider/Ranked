@@ -148,9 +148,9 @@ class QueryRunner
 
     public function listRanksOfPlayer(string $player_uuid): Generator
     {
-        return yield from $this->lock(function () use($player_uuid): Generator {
+        return yield from $this->lock(function () use ($player_uuid): Generator {
             yield from $this->db->executeSelect('ranked.player_ranks.list_ranks', [
-                "player_uuid" => $player_uuid,
+                'player_uuid' => $player_uuid,
             ], yield Await::RESOLVE, yield Await::REJECT);
 
             return yield Await::ONCE;
@@ -159,9 +159,9 @@ class QueryRunner
 
     public function listPlayersOfRank(string $rank_id): Generator
     {
-        return yield from $this->lock(function () use($rank_id): Generator {
+        return yield from $this->lock(function () use ($rank_id): Generator {
             yield from $this->db->executeSelect('ranked.player_ranks.list_players', [
-                "rank_id" => $rank_id,
+                'rank_id' => $rank_id,
             ], yield Await::RESOLVE, yield Await::REJECT);
 
             return yield Await::ONCE;
