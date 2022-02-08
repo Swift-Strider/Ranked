@@ -5,14 +5,14 @@
 -- #    { ranks
 CREATE TABLE IF NOT EXISTS Ranks(
     id INT AUTO_INCREMENT,
-    name TEXT UNIQUE NOT NULL,
+    name VARCHAR(32) UNIQUE NOT NULL,
     PRIMARY KEY(id)
 );
 -- #    }
 -- #    { rankpermissions
 CREATE TABLE IF NOT EXISTS RankPermissions(
     rank_id INT NOT NULL,
-    permission TEXT NOT NULL,
+    permission VARCHAR(32) NOT NULL,
     PRIMARY KEY(rank_id, permission),
     FOREIGN KEY(rank_id)
         REFERENCES Ranks(id)
@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS RankPermissions(
 -- #    { players
 CREATE TABLE IF NOT EXISTS Players(
     player_uuid VARCHAR(50) NOT NULL,
-    username TEXT NOT NULL,
-    display_name TEXT NOT NULL,
+    username VARCHAR(32) NOT NULL,
+    display_name VARCHAR(32) NOT NULL,
     PRIMARY KEY(player_uuid)
 );
 -- #    }
