@@ -57,6 +57,7 @@ class Loader extends PluginBase
     public function onDisable(): void
     {
         Ranked\config\Manager::get()->dispose();
+        Ranked\database\Manager::get()->dispose();
         Ranked\ranks\Manager::get()->dispose();
     }
 
