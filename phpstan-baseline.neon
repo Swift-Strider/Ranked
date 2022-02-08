@@ -6,7 +6,7 @@ parameters:
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:getById\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:getRankId\\(\\) return type has no value type specified in iterable type Generator\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
