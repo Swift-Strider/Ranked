@@ -60,6 +60,11 @@ class Manager implements IManager
         Await::g2c($this->queryRunner->init());
     }
 
+    public function getQueryRunner(): QueryRunner
+    {
+        return $this->queryRunner;
+    }
+
     public function dispose(): void
     {
         if (isset($this->database)) {
