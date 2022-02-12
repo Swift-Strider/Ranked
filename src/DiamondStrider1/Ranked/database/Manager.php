@@ -38,7 +38,6 @@ use poggit\libasynql\DataConnector;
 use poggit\libasynql\libasynql;
 use poggit\libasynql\SqlError;
 use PrefixedLogger;
-use SOFe\AwaitGenerator\Await;
 
 class Manager implements IManager
 {
@@ -78,7 +77,8 @@ class Manager implements IManager
             $this->database,
             'sqlite' === $this->config->type
         );
-        Await::g2c($this->queryRunner->init());
+
+        yield from $this->queryRunner->init();
     }
 
     public function getQueryRunner(): QueryRunner
