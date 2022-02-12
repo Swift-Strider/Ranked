@@ -28,6 +28,8 @@ declare(strict_types=1);
 
 namespace DiamondStrider1\Ranked\manager;
 
+use Generator;
+
 /**
  * This trait implements Manager.
  */
@@ -38,11 +40,11 @@ trait ManagerTrait
     /**
      * @throws ManagerLoadFailedException
      */
-    public static function get(): self
+    public static function get(): Generator
     {
         if (!isset(self::$instance)) {
             self::$instance = new self();
-            self::$instance->onLoad();
+            yield from self::$instance->onLoad();
         }
 
         return self::$instance;
@@ -66,5 +68,5 @@ trait ManagerTrait
     /**
      * @throws ManagerLoadFailedException
      */
-    abstract private function onLoad(): void;
+    abstract private function onLoad(): Generator;
 }

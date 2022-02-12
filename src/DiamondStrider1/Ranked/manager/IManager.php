@@ -28,12 +28,14 @@ declare(strict_types=1);
 
 namespace DiamondStrider1\Ranked\manager;
 
+use Generator;
+
 /**
  * A singleton that implements a feature of this plugin.
  */
 interface IManager
 {
-    public static function get(): self;
+    public static function get(): Generator;
 
     public function dispose(): void;
 }

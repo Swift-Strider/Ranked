@@ -31,14 +31,17 @@ namespace DiamondStrider1\Ranked\ranks;
 use DiamondStrider1\Ranked\Loader;
 use DiamondStrider1\Ranked\manager\IManager;
 use DiamondStrider1\Ranked\manager\ManagerTrait;
+use Generator;
 
 class Manager implements IManager
 {
     use ManagerTrait;
     private Loader $plugin;
 
-    public function onLoad(): void
+    public function onLoad(): Generator
     {
+        false && yield;
+
         $this->plugin = Loader::get();
         $cm = $this->plugin->getServer()->getCommandMap();
         (new RankCommand())->registerAll($cm);

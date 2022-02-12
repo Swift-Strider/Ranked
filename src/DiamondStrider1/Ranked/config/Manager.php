@@ -33,6 +33,7 @@ use DiamondStrider1\DiamondDatas\NeoConfig;
 use DiamondStrider1\Ranked\Loader;
 use DiamondStrider1\Ranked\manager\IManager;
 use DiamondStrider1\Ranked\manager\ManagerTrait;
+use Generator;
 use Logger;
 use PrefixedLogger;
 
@@ -46,8 +47,10 @@ class Manager implements IManager
     /** @phpstan-var NeoConfig<Config> */
     private NeoConfig $neoConfig;
 
-    public function onLoad(): void
+    public function onLoad(): Generator
     {
+        false && yield;
+
         $this->plugin = Loader::get();
         $this->logger = new PrefixedLogger($this->plugin->getLogger(), 'Config');
         $filename = $this->plugin->getDataFolder().'config.yml';

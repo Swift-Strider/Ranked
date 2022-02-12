@@ -32,6 +32,7 @@ use DiamondStrider1\Ranked\config\Manager as ConfigManager;
 use DiamondStrider1\Ranked\Loader;
 use DiamondStrider1\Ranked\manager\IManager;
 use DiamondStrider1\Ranked\manager\ManagerTrait;
+use Generator;
 use poggit\libasynql\DataConnector;
 use poggit\libasynql\libasynql;
 use SOFe\AwaitGenerator\Await;
@@ -45,10 +46,10 @@ class Manager implements IManager
     private DataConnector $database;
     private QueryRunner $queryRunner;
 
-    public function onLoad(): void
+    public function onLoad(): Generator
     {
         $this->plugin = Loader::get();
-        $this->config = ConfigManager::get()->getConfig()->database;
+        $this->config = (yield from ConfigManager::get())->getConfig()->database;
         $this->database = libasynql::create($this->plugin, $this->config->convertToArray(), [
             'sqlite' => 'db_stmts/sqlite.sql',
             'mysql' => 'db_stmts/mysql.sql',

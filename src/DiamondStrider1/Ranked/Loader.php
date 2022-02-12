@@ -30,7 +30,9 @@ namespace DiamondStrider1\Ranked;
 
 use DiamondStrider1\Ranked;
 use DiamondStrider1\Ranked\manager\ManagerLoadFailedException;
+use Generator;
 use pocketmine\plugin\PluginBase;
+use SOFe\AwaitGenerator\Await;
 
 class Loader extends PluginBase
 {
@@ -43,21 +45,33 @@ class Loader extends PluginBase
 
     public function onEnable(): void
     {
-        try {
-            Ranked\config\Manager::get();
-            Ranked\database\Manager::get();
-            Ranked\ranks\Manager::get();
-        } catch (ManagerLoadFailedException $e) {
-            $this->getLogger()->critical('Detected Manager Failure: '.$e->getMessage());
-            $this->getServer()->shutdown();
-        }
+        Await::f2c(function (): Generator {
+            $promises[] = Ranked\config\Manager::get();
+            $promises[] = Ranked\database\Manager::get();
+            $promises[] = Ranked\ranks\Manager::get();
+
+            try {
+                yield from Await::all($promises);
+            } catch (ManagerLoadFailedException $e) {
+                $this->getLogger()->critical('Detected Manager Failure: '.$e->getMessage());
+                $this->getServer()->shutdown();
+            }
+        });
     }
 
     public function onDisable(): void
     {
-        Ranked\config\Manager::get()->dispose();
-        Ranked\database\Manager::get()->dispose();
-        Ranked\ranks\Manager::get()->dispose();
+        Await::f2c(function (): Generator {
+            $promises[] = (fn () => (yield from Ranked\config\Manager::get())->dispose())();
+            $promises[] = (fn () => (yield from Ranked\database\Manager::get())->dispose())();
+            $promises[] = (fn () => (yield from Ranked\ranks\Manager::get())->dispose())();
+            try {
+                yield from Await::all($promises);
+            } catch (ManagerLoadFailedException $e) {
+                $this->getLogger()->critical('Detected Manager Failure: '.$e->getMessage());
+                $this->getServer()->shutdown();
+            }
+        });
     }
 
     public static function get(): self
