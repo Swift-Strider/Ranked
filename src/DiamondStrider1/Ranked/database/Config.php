@@ -31,9 +31,12 @@ namespace DiamondStrider1\Ranked\database;
 use DiamondStrider1\DiamondDatas\attributes\IntType;
 use DiamondStrider1\DiamondDatas\attributes\ObjectType;
 use DiamondStrider1\DiamondDatas\attributes\StringType;
+use DiamondStrider1\DiamondDatas\ConfigContext;
+use DiamondStrider1\DiamondDatas\ConfigException;
+use DiamondStrider1\DiamondDatas\metadata\IValidationProvider;
 use DiamondStrider1\Ranked\config\IConfig;
 
-class Config implements IConfig
+class Config implements IConfig, IValidationProvider
 {
     #[StringType('type', <<<'EOT'
         What SQL type to use.
@@ -65,6 +68,16 @@ class Config implements IConfig
         $self->workerLimit = 1;
 
         return $self;
+    }
+
+    public function validate(ConfigContext $context): void
+    {
+        if ('sqlite' !== $this->type && 'mysql' !== $this->type) {
+            throw new ConfigException("Database 'type' must be 'sqlite' or 'mysql'!", $context);
+        }
+        if ($this->workerLimit < 1) {
+            throw new ConfigException("Database 'worker-limit' must be AT LEAST 1!", $context);
+        }
     }
 
     /**
