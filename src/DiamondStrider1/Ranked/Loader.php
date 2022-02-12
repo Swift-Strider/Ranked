@@ -65,6 +65,7 @@ class Loader extends PluginBase
             $promises[] = (fn () => (yield from Ranked\config\Manager::get())->dispose())();
             $promises[] = (fn () => (yield from Ranked\database\Manager::get())->dispose())();
             $promises[] = (fn () => (yield from Ranked\ranks\Manager::get())->dispose())();
+
             try {
                 yield from Await::all($promises);
             } catch (ManagerLoadFailedException $e) {
