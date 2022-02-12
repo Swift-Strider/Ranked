@@ -33,8 +33,11 @@ use DiamondStrider1\Ranked\Loader;
 use DiamondStrider1\Ranked\manager\IManager;
 use DiamondStrider1\Ranked\manager\ManagerTrait;
 use Generator;
+use Logger;
 use poggit\libasynql\DataConnector;
 use poggit\libasynql\libasynql;
+use poggit\libasynql\SqlError;
+use PrefixedLogger;
 use SOFe\AwaitGenerator\Await;
 
 class Manager implements IManager
@@ -42,6 +45,7 @@ class Manager implements IManager
     use ManagerTrait;
 
     private Loader $plugin;
+    private Logger $logger;
     private Config $config;
     private DataConnector $database;
     private QueryRunner $queryRunner;
@@ -49,11 +53,27 @@ class Manager implements IManager
     public function onLoad(): Generator
     {
         $this->plugin = Loader::get();
+        $this->logger = new PrefixedLogger($this->plugin->getLogger(), 'Database');
         $this->config = (yield from ConfigManager::get())->getConfig()->database;
-        $this->database = libasynql::create($this->plugin, $this->config->convertToArray(), [
-            'sqlite' => 'db_stmts/sqlite.sql',
-            'mysql' => 'db_stmts/mysql.sql',
-        ], true);
+
+        try {
+            $this->database = libasynql::create(
+                $this->plugin,
+                $this->config->convertToArray(),
+                [
+                    'sqlite' => 'db_stmts/sqlite.sql',
+                    'mysql' => 'db_stmts/mysql.sql',
+                ],
+                true
+            );
+        } catch (SqlError $e) {
+            if (SqlError::STAGE_CONNECT !== $e->getStage()) {
+                throw $e;
+            }
+            $this->logger->emergency($e->getErrorMessage());
+            $this->fail();
+        }
+
         $this->queryRunner = new QueryRunner(
             $this->database,
             'sqlite' === $this->config->type
