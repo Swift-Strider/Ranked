@@ -49,8 +49,7 @@ class Loader extends PluginBase
             Ranked\ranks\Manager::get();
         } catch (ManagerLoadFailedException $e) {
             $this->getLogger()->critical('Detected Manager Failure: '.$e->getMessage());
-            $this->getLogger()->critical('Disabling Self Now.');
-            $this->getServer()->getPluginManager()->disablePlugin($this);
+            $this->getServer()->shutdown();
         }
     }
 
