@@ -1,6 +1,7 @@
 name: Ranked
 author: DiamondStrider1
 description: Manage your players' permissions
+website: https://github.com/Swift-Strider/Ranked
 
 main: DiamondStrider1\Ranked\Loader
 version: 0.0.1
