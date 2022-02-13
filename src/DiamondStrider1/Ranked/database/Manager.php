@@ -73,6 +73,8 @@ class Manager implements IManager
             $this->fail();
         }
 
+        $this->database->setLogger($this->logger);
+
         $this->queryRunner = new QueryRunner(
             $this->database,
             'sqlite' === $this->config->type
