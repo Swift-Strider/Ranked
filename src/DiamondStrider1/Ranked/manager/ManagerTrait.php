@@ -36,15 +36,24 @@ use Generator;
 trait ManagerTrait
 {
     private static self $instance;
+    private static ManagerLoadFailedException $failed;
 
     /**
      * @throws ManagerLoadFailedException
      */
     public static function get(): Generator
     {
+        if (isset(self::$failed)) {
+            throw self::$failed;
+        }
+
         if (!isset(self::$instance)) {
             self::$instance = new self();
-            yield from self::$instance->onLoad();
+            try {
+                yield from self::$instance->onLoad();
+            } catch (ManagerLoadFailedException $e) {
+                throw self::$failed = $e;
+            }
         }
 
         return self::$instance;

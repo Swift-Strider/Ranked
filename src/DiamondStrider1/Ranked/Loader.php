@@ -61,18 +61,13 @@ class Loader extends PluginBase
 
     public function onDisable(): void
     {
-        Await::f2c(function (): Generator {
-            $promises[] = (fn () => (yield from Ranked\config\Manager::get())->dispose())();
-            $promises[] = (fn () => (yield from Ranked\database\Manager::get())->dispose())();
-            $promises[] = (fn () => (yield from Ranked\ranks\Manager::get())->dispose())();
+        $promises[] = (fn () => (yield from Ranked\config\Manager::get())->dispose())();
+        $promises[] = (fn () => (yield from Ranked\database\Manager::get())->dispose())();
+        $promises[] = (fn () => (yield from Ranked\ranks\Manager::get())->dispose())();
 
-            try {
-                yield from Await::all($promises);
-            } catch (ManagerLoadFailedException $e) {
-                $this->getLogger()->critical('Detected Manager Failure: '.$e->getMessage());
-                $this->getServer()->shutdown();
-            }
-        });
+        foreach ($promises as $p) {
+            Await::g2c($p);
+        }
     }
 
     public static function get(): self
