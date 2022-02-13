@@ -28,6 +28,7 @@ declare(strict_types=1);
 
 namespace DiamondStrider1\Ranked\ranks;
 
+use DiamondStrider1\Ranked\command\MountedCommand;
 use DiamondStrider1\Ranked\Loader;
 use DiamondStrider1\Ranked\manager\IManager;
 use DiamondStrider1\Ranked\manager\ManagerTrait;
@@ -44,6 +45,9 @@ class Manager implements IManager
 
         $this->plugin = Loader::get();
         $cm = $this->plugin->getServer()->getCommandMap();
-        (new RankCommand())->registerAll($cm);
+        $cm->register(
+            'ranked',
+            new MountedCommand('ranked', new RankCommand(), $this->plugin)
+        );
     }
 }

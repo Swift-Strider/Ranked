@@ -28,28 +28,33 @@ declare(strict_types=1);
 
 namespace DiamondStrider1\Ranked\command;
 
+use AssertionError;
+use DiamondStrider1\Ranked\command\attributes\CommandGroup;
 use DiamondStrider1\Ranked\command\attributes\CommandSettings;
 use InvalidArgumentException;
-use pocketmine\command\CommandMap;
 use ReflectionClass;
 use ReflectionMethod;
 
 abstract class CommandBase
 {
-    /** @var array<string, CommandOverload[]> */
-    private static $overloadsMap = [];
+    /** @var CommandOverload[] */
+    private array $overloads;
 
-    public function registerAll(CommandMap $commandMap): void
+    public function getCommandGroup(): CommandGroup
     {
-        $commandMap->registerAll('ranked', $this->createOverloads());
+        $group = (new ReflectionClass(static::class))->getAttributes(CommandGroup::class)[0] ?? null;
+        if (null === $group) {
+            throw new AssertionError(static::class.' is missing a CommandGroup attribute');
+        }
+
+        return $group->newInstance();
     }
 
     /** @return CommandOverload[] */
-    private function createOverloads(): array
+    public function getOverloads(): array
     {
-        $overloads = self::$overloadsMap[static::class] ?? null;
-        if (null !== $overloads) {
-            return $overloads;
+        if (isset($this->overloads)) {
+            return $this->overloads;
         }
 
         $rMethods = (new ReflectionClass(static::class))->getMethods(ReflectionMethod::IS_PUBLIC);
@@ -76,6 +81,6 @@ abstract class CommandBase
             }
         }
 
-        return self::$overloadsMap[static::class] = $overloads;
+        return $this->overloads = $overloads;
     }
 }

@@ -26,36 +26,26 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked\ranks;
+namespace DiamondStrider1\Ranked\command\attributes;
 
-use DiamondStrider1\Ranked\command\attributes\CommandGroup;
-use DiamondStrider1\Ranked\command\attributes\CommandSettings;
-use DiamondStrider1\Ranked\command\CommandBase;
-use pocketmine\command\CommandSender;
+use Attribute;
 
-#[CommandGroup(
-    description: 'Manage ranks on your server!',
-    permission: 'ranked.ranks.command'
-)]
-class RankCommand extends CommandBase
+#[Attribute(Attribute::TARGET_CLASS)]
+class CommandGroup
 {
-    #[CommandSettings(
-        name: 'add',
-        permission: 'ranked.ranks.command.add',
-        description: 'Add a new rank to your server!',
-    )]
-    public function addRank(CommandSender $sender, string $name): void
-    {
-        $sender->sendMessage("add: $name");
+    public function __construct(
+        private string $description,
+        private string $permission,
+    ) {
     }
 
-    #[CommandSettings(
-        name: 'remove',
-        permission: 'ranked.ranks.command.remove',
-        description: 'Remove a rank from your server!',
-    )]
-    public function removeRank(CommandSender $sender, string $name): void
+    public function getDescription(): string
     {
-        $sender->sendMessage("remove: $name");
+        return $this->description;
+    }
+
+    public function getPermission(): string
+    {
+        return $this->permission;
     }
 }

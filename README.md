@@ -7,5 +7,4 @@ Use /rank, and the plugin will guide you through the rest.
 # Project TODOs
 
 - Ranked\command
-  - [ ] Support subcommand functions (Ex. `/roles create` and `/roles remove`) that can have their own unique signature (`/roles create <id> <perms>` vs `/roles remove <id>`).
   - [ ] Auto-Generate usage for command functions.
