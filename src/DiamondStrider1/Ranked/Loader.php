@@ -66,7 +66,7 @@ class Loader extends PluginBase
         $promises[] = (fn () => (yield from Ranked\ranks\Manager::get())->dispose())();
 
         foreach ($promises as $p) {
-            Await::g2c($p, catches: function(): void {});
+            Await::g2c($p, catches: function (): void {});
         }
     }
 

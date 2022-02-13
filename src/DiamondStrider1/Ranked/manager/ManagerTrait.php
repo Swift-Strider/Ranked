@@ -49,6 +49,7 @@ trait ManagerTrait
 
         if (!isset(self::$instance)) {
             self::$instance = new self();
+
             try {
                 yield from self::$instance->onLoad();
             } catch (ManagerLoadFailedException $e) {
