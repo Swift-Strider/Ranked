@@ -60,7 +60,7 @@ class Config implements IConfig, IValidationProvider
         if (!$langExists) {
             throw new ConfigException(
                 "The `lang` \"{$this->language}\" is not supported. ".
-                    'Use '.implode(', ', array_values(self::ALL_LANGS))
+                    'Use '.implode(', ', array_keys(self::ALL_LANGS))
             );
         }
     }
