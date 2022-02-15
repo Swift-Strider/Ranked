@@ -35,7 +35,6 @@ use DiamondStrider1\Ranked\manager\IManager;
 use DiamondStrider1\Ranked\manager\ManagerTrait;
 use Generator;
 use Logger;
-use PrefixedLogger;
 
 class Manager implements IManager
 {
@@ -51,8 +50,6 @@ class Manager implements IManager
     {
         false && yield;
 
-        $this->plugin = Loader::get();
-        $this->logger = new PrefixedLogger($this->plugin->getLogger(), 'Config');
         $filename = $this->plugin->getDataFolder().'config.yml';
         $this->neoConfig = new NeoConfig($filename, Config::class);
 

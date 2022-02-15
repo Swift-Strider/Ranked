@@ -37,7 +37,6 @@ use Logger;
 use poggit\libasynql\DataConnector;
 use poggit\libasynql\libasynql;
 use poggit\libasynql\SqlError;
-use PrefixedLogger;
 
 class Manager implements IManager
 {
@@ -45,15 +44,14 @@ class Manager implements IManager
 
     private Loader $plugin;
     private Logger $logger;
+    private ConfigManager $configManager;
     private Config $config;
     private DataConnector $database;
     private QueryRunner $queryRunner;
 
     public function onLoad(): Generator
     {
-        $this->plugin = Loader::get();
-        $this->logger = new PrefixedLogger($this->plugin->getLogger(), 'Database');
-        $this->config = (yield from ConfigManager::get())->getConfig()->database;
+        $this->config = $this->configManager->getConfig()->database;
 
         try {
             $this->database = libasynql::create(

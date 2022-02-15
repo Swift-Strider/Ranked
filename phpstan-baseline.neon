@@ -16,12 +16,37 @@ parameters:
 			path: src/DiamondStrider1/Ranked/config/Manager.php
 
 		-
+			message: "#^Property DiamondStrider1\\\\Ranked\\\\config\\\\Manager\\:\\:\\$logger is never written, only read\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/config/Manager.php
+
+		-
+			message: "#^Property DiamondStrider1\\\\Ranked\\\\config\\\\Manager\\:\\:\\$plugin is never written, only read\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/config/Manager.php
+
+		-
 			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\Manager\\:\\:get\\(\\) return type has no value type specified in iterable type Generator\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/Manager.php
 
 		-
 			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\Manager\\:\\:onLoad\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/Manager.php
+
+		-
+			message: "#^Property DiamondStrider1\\\\Ranked\\\\database\\\\Manager\\:\\:\\$configManager is never written, only read\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/Manager.php
+
+		-
+			message: "#^Property DiamondStrider1\\\\Ranked\\\\database\\\\Manager\\:\\:\\$logger is never written, only read\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/Manager.php
+
+		-
+			message: "#^Property DiamondStrider1\\\\Ranked\\\\database\\\\Manager\\:\\:\\$plugin is never written, only read\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/Manager.php
 
@@ -127,6 +152,11 @@ parameters:
 
 		-
 			message: "#^Method DiamondStrider1\\\\Ranked\\\\ranks\\\\Manager\\:\\:onLoad\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/ranks/Manager.php
+
+		-
+			message: "#^Property DiamondStrider1\\\\Ranked\\\\ranks\\\\Manager\\:\\:\\$plugin is never written, only read\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/ranks/Manager.php
 

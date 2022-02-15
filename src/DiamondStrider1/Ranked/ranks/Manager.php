@@ -43,7 +43,6 @@ class Manager implements IManager
     {
         false && yield;
 
-        $this->plugin = Loader::get();
         $cm = $this->plugin->getServer()->getCommandMap();
         $cm->register(
             'ranked',

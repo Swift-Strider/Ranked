@@ -28,7 +28,12 @@ declare(strict_types=1);
 
 namespace DiamondStrider1\Ranked\manager;
 
+use DiamondStrider1\Ranked\Loader;
 use Generator;
+use Logger;
+use PrefixedLogger;
+use ReflectionClass;
+use ReflectionNamedType;
 
 /**
  * This trait implements Manager.
@@ -49,6 +54,36 @@ trait ManagerTrait
 
         if (!isset(self::$instance)) {
             self::$instance = new self();
+
+            // Inject Manager, Loader (Plugin Class), and Logger dependencies.
+            $rClass = new ReflectionClass(static::class);
+            foreach ($rClass->getProperties() as $rProp) {
+                if ($rProp->isStatic()) {
+                    continue;
+                }
+                $type = $rProp->getType();
+                if (!$type instanceof ReflectionNamedType) {
+                    continue;
+                }
+                $classString = $type->getName();
+                if (!class_exists($classString) && !interface_exists($classString)) {
+                    continue;
+                }
+                echo static::class.' '.$classString."\n";
+                if (is_subclass_of($classString, IManager::class)) {
+                    $dependency = yield from $classString::get();
+                } elseif (Loader::class === $classString) {
+                    $dependency = Loader::get();
+                } elseif (Logger::class === $classString) {
+                    $parts = explode('\\', static::class);
+                    $prefix = ucfirst($parts[\count($parts) - 2]);
+                    $dependency = new PrefixedLogger(Loader::get()->getLogger(), $prefix);
+                } else {
+                    continue;
+                }
+                $rProp->setAccessible(true);
+                $rProp->setValue(self::$instance, $dependency);
+            }
 
             try {
                 yield from self::$instance->onLoad();
