@@ -46,7 +46,7 @@ class RankCommand extends CommandBase
     )]
     public function addRank(CommandSender $sender, string $name): void
     {
-        $sender->sendMessage("add: $name");
+        $sender->sendMessage("add: {$name}");
     }
 
     #[CommandSettings(
@@ -56,6 +56,6 @@ class RankCommand extends CommandBase
     )]
     public function removeRank(CommandSender $sender, string $name): void
     {
-        $sender->sendMessage("remove: $name");
+        $sender->sendMessage("remove: {$name}");
     }
 }

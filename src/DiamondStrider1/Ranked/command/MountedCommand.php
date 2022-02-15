@@ -66,7 +66,7 @@ class MountedCommand extends Command implements PluginOwned
         }
 
         $overload = $this->overloadMap[$overloadName];
-        $overload->execute($sender, "$label $overloadName", $args);
+        $overload->execute($sender, "{$label} {$overloadName}", $args);
     }
 
     public function getOwningPlugin(): Plugin
