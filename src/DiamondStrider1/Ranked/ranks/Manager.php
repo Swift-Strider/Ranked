@@ -37,6 +37,7 @@ use Generator;
 class Manager implements IManager
 {
     use ManagerTrait;
+
     private Loader $plugin;
 
     public function onLoad(): Generator
