@@ -61,7 +61,7 @@ class Manager implements IManager
                     'sqlite' => 'db_stmts/sqlite.sql',
                     'mysql' => 'db_stmts/mysql.sql',
                 ],
-                true
+                false
             );
         } catch (SqlError $e) {
             if (SqlError::STAGE_CONNECT !== $e->getStage()) {
@@ -71,7 +71,9 @@ class Manager implements IManager
             $this->fail();
         }
 
-        $this->database->setLogger($this->logger);
+        if ($this->config->logQueries) {
+            $this->database->setLogger($this->logger);
+        }
 
         $this->queryRunner = new QueryRunner(
             $this->database,

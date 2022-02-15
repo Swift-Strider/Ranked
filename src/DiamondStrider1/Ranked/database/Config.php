@@ -28,6 +28,7 @@ declare(strict_types=1);
 
 namespace DiamondStrider1\Ranked\database;
 
+use DiamondStrider1\DiamondDatas\attributes\BoolType;
 use DiamondStrider1\DiamondDatas\attributes\IntType;
 use DiamondStrider1\DiamondDatas\attributes\ObjectType;
 use DiamondStrider1\DiamondDatas\attributes\StringType;
@@ -58,6 +59,11 @@ class Config implements IConfig, IValidationProvider
         your MySQL connection is very slow
         EOT)]
     public int $workerLimit;
+    #[BoolType('log-queries', <<<'EOT'
+        Logs messages at "DEBUG" level for queries made.
+        "DEBUG" messages must first be enabled in "pocketmine.yml"
+        EOT)]
+    public bool $logQueries;
 
     public static function createDefault(): self
     {
@@ -66,6 +72,7 @@ class Config implements IConfig, IValidationProvider
         $self->sqlite = new SQLiteSettings('sqlite.db');
         $self->mysql = new MySQLSettings('127.0.0.1', 'root', '', '');
         $self->workerLimit = 1;
+        $self->logQueries = false;
 
         return $self;
     }
