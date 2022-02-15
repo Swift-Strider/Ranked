@@ -69,7 +69,6 @@ trait ManagerTrait
                 if (!class_exists($classString) && !interface_exists($classString)) {
                     continue;
                 }
-                echo static::class.' '.$classString."\n";
                 if (is_subclass_of($classString, IManager::class)) {
                     $dependency = yield from $classString::get();
                 } elseif (Loader::class === $classString) {
