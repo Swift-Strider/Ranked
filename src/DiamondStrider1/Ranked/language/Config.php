@@ -26,25 +26,42 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked\config;
+namespace DiamondStrider1\Ranked\language;
 
-use DiamondStrider1\DiamondDatas\attributes\ObjectType;
-use DiamondStrider1\DiamondDatas\metadata\IDefaultProvider;
-use DiamondStrider1\Ranked\database\Config as DatabaseConfig;
-use DiamondStrider1\Ranked\language\Config as LanguageConfig;
+use DiamondStrider1\DiamondDatas\attributes\StringType;
+use DiamondStrider1\DiamondDatas\ConfigContext;
+use DiamondStrider1\DiamondDatas\ConfigException;
+use DiamondStrider1\DiamondDatas\metadata\IValidationProvider;
+use DiamondStrider1\Ranked\config\IConfig;
 
-class Config implements IDefaultProvider
+class Config implements IConfig, IValidationProvider
 {
-    #[ObjectType(DatabaseConfig::class, 'database', 'Database Configuration')]
-    public DatabaseConfig $database;
-    #[ObjectType(LanguageConfig::class, 'language', 'Language Configuration')]
-    public LanguageConfig $language;
+    public const ALL_LANGS = [
+        'en_US' => true,
+    ];
 
-    public static function getDefaults(): array
+    #[StringType(
+        config_key: 'lang',
+        description: 'The language for the plugin. Supports: "en_US"'
+    )]
+    public string $language;
+
+    public static function createDefault(): self
     {
-        return [
-            'database' => DatabaseConfig::createDefault(),
-            'language' => LanguageConfig::createDefault(),
-        ];
+        $self = new self();
+        $self->language = 'en_US';
+
+        return $self;
+    }
+
+    public function validate(ConfigContext $context): void
+    {
+        $langExists = self::ALL_LANGS[$this->language] ?? false;
+        if (!$langExists) {
+            throw new ConfigException(
+                "The `lang` \"{$this->language}\" is not supported. ".
+                    'Use '.implode(', ', array_values(self::ALL_LANGS))
+            );
+        }
     }
 }

@@ -48,6 +48,7 @@ class Loader extends PluginBase
         Await::f2c(function (): Generator {
             $promises[] = Ranked\config\Manager::get();
             $promises[] = Ranked\database\Manager::get();
+            $promises[] = Ranked\language\Manager::get();
             $promises[] = Ranked\ranks\Manager::get();
 
             try {
@@ -63,6 +64,7 @@ class Loader extends PluginBase
     {
         $promises[] = (fn () => (yield from Ranked\config\Manager::get())->dispose())();
         $promises[] = (fn () => (yield from Ranked\database\Manager::get())->dispose())();
+        $promises[] = (fn () => (yield from Ranked\language\Manager::get())->dispose())();
         $promises[] = (fn () => (yield from Ranked\ranks\Manager::get())->dispose())();
 
         foreach ($promises as $p) {

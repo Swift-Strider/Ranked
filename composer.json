@@ -12,6 +12,7 @@
 
     "scripts": {
         "phpstan": "vendor/bin/phpstan analyze src",
-        "fmt": "vendor/bin/php-cs-fixer fix"
+        "fmt": "vendor/bin/php-cs-fixer fix",
+        "generate_lang": "php build/generate_lang.php"
     }
 }

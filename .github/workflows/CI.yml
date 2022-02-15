@@ -40,3 +40,18 @@ jobs:
       - run: |
           composer install --ignore-platform-reqs
           composer run -- fmt --dry-run --diff
+  lang-check:
+    name: Generated Language.php Check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version:
+          - "8.0"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{matrix.php-version}}
+      - run: |
+          composer install --ignore-platform-reqs
+          composer run -- generate_lang --diff

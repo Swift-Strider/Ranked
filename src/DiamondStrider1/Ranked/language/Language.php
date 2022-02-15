@@ -26,25 +26,42 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked\config;
+namespace DiamondStrider1\Ranked\language;
 
-use DiamondStrider1\DiamondDatas\attributes\ObjectType;
-use DiamondStrider1\DiamondDatas\metadata\IDefaultProvider;
-use DiamondStrider1\Ranked\database\Config as DatabaseConfig;
-use DiamondStrider1\Ranked\language\Config as LanguageConfig;
-
-class Config implements IDefaultProvider
+class Language
 {
-    #[ObjectType(DatabaseConfig::class, 'database', 'Database Configuration')]
-    public DatabaseConfig $database;
-    #[ObjectType(LanguageConfig::class, 'language', 'Language Configuration')]
-    public LanguageConfig $language;
+    /** @var string[] */
+    private array $texts = [];
 
-    public static function getDefaults(): array
+    /**
+     * @param resource $langFile
+     */
+    public function __construct($langFile)
     {
-        return [
-            'database' => DatabaseConfig::createDefault(),
-            'language' => LanguageConfig::createDefault(),
-        ];
+        while (($line = fgets($langFile)) !== false) {
+            $explosion = explode('=', rtrim($line));
+            $key = $explosion[0] ?? null;
+            $value = $explosion[1] ?? null;
+            if (null === $key || null === $value) {
+                continue;
+            }
+            $this->texts[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string, string> $params
+     */
+    private function getRaw(string $key, array $params): string
+    {
+        $text = $this->texts[$key] ?? null;
+        if (null === $text) {
+            return $key;
+        }
+        foreach ($params as $name => $param) {
+            $text = str_replace("%{$name}%", $param, $text);
+        }
+
+        return $text;
     }
 }

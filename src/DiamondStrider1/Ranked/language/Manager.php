@@ -26,25 +26,39 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked\config;
+namespace DiamondStrider1\Ranked\language;
 
-use DiamondStrider1\DiamondDatas\attributes\ObjectType;
-use DiamondStrider1\DiamondDatas\metadata\IDefaultProvider;
-use DiamondStrider1\Ranked\database\Config as DatabaseConfig;
-use DiamondStrider1\Ranked\language\Config as LanguageConfig;
+use AssertionError;
+use DiamondStrider1\Ranked\config\Manager as ConfigManager;
+use DiamondStrider1\Ranked\Loader;
+use DiamondStrider1\Ranked\manager\IManager;
+use DiamondStrider1\Ranked\manager\ManagerTrait;
+use Generator;
 
-class Config implements IDefaultProvider
+class Manager implements IManager
 {
-    #[ObjectType(DatabaseConfig::class, 'database', 'Database Configuration')]
-    public DatabaseConfig $database;
-    #[ObjectType(LanguageConfig::class, 'language', 'Language Configuration')]
-    public LanguageConfig $language;
+    use ManagerTrait;
 
-    public static function getDefaults(): array
+    private Loader $plugin;
+    private ConfigManager $configManager;
+    private Config $config;
+    private Language $language;
+
+    public function getLang(): Language
     {
-        return [
-            'database' => DatabaseConfig::createDefault(),
-            'language' => LanguageConfig::createDefault(),
-        ];
+        return $this->language;
+    }
+
+    private function onLoad(): Generator
+    {
+        false && yield;
+
+        $this->config = $this->configManager->getConfig()->language;
+        $language = $this->config->language;
+        $resource = $this->plugin->getResource("langs/{$language}.ini");
+        if (null === $resource) {
+            throw new AssertionError("Cannot open language file `langs/{$language}.ini`");
+        }
+        $this->language = new Language($resource);
     }
 }
