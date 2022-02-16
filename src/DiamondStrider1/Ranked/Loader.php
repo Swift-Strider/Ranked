@@ -29,6 +29,7 @@ declare(strict_types=1);
 namespace DiamondStrider1\Ranked;
 
 use DiamondStrider1\Ranked;
+use DiamondStrider1\Ranked\language\Language;
 use DiamondStrider1\Ranked\manager\ManagerLoadFailedException;
 use Generator;
 use pocketmine\plugin\PluginBase;
@@ -46,15 +47,24 @@ class Loader extends PluginBase
     public function onEnable(): void
     {
         Await::f2c(function (): Generator {
+            try {
+                /** @var Language $lang */
+                $lang = (yield from Ranked\language\Manager::get())->getLang();
+            } catch (ManagerLoadFailedException $e) {
+                $this->getLogger()->critical('Detected Manager Failure: '.$e->getMessage());
+                $this->getServer()->shutdown();
+
+                return;
+            }
+
             $promises[] = Ranked\config\Manager::get();
             $promises[] = Ranked\database\Manager::get();
-            $promises[] = Ranked\language\Manager::get();
             $promises[] = Ranked\ranks\Manager::get();
 
             try {
                 yield from Await::all($promises);
             } catch (ManagerLoadFailedException $e) {
-                $this->getLogger()->critical('Detected Manager Failure: '.$e->getMessage());
+                $this->getLogger()->critical($lang->manager_failure($e->getMessage()));
                 $this->getServer()->shutdown();
             }
         });

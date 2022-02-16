@@ -64,4 +64,11 @@ class Language
 
         return $text;
     }
+
+    public function manager_failure(string $message): string
+    {
+        return $this->getRaw("manager.failure", [
+            'message' => $message
+        ]);
+    }
 }
