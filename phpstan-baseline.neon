@@ -136,11 +136,6 @@ parameters:
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\language\\\\Language\\:\\:getRaw\\(\\) is unused\\.$#"
-			count: 1
-			path: src/DiamondStrider1/Ranked/language/Language.php
-
-		-
 			message: "#^Left side of && is always false\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/language/Manager.php
