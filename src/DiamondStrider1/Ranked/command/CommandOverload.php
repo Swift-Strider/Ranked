@@ -28,6 +28,7 @@ declare(strict_types=1);
 
 namespace DiamondStrider1\Ranked\command;
 
+use DiamondStrider1\Ranked\command\attributes\CommandSettings;
 use DiamondStrider1\Ranked\command\parameters\CommandParameter;
 use DiamondStrider1\Ranked\command\parameters\ParameterRegister;
 use DiamondStrider1\Ranked\form\CustomForm;
@@ -36,7 +37,6 @@ use Generator;
 use InvalidArgumentException;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\lang\Translatable;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginOwned;
 use ReflectionMethod;
@@ -53,20 +53,13 @@ class CommandOverload extends Command implements PluginOwned
     /** @var CommandParameter[] */
     private array $params = [];
 
-    /**
-     * @param string[] $aliases
-     */
     public function __construct(
-        string $name,
-        ?string $permission,
-        Translatable|string $description,
-        Translatable|string|null $usageMessage = null,
-        array $aliases,
+        CommandSettings $s,
         private ReflectionMethod $method,
         private CommandBase $owner,
     ) {
-        parent::__construct($name, $description, $usageMessage, $aliases);
-        $this->setPermission($permission);
+        parent::__construct($s->getName(), $s->getDescription(), $s->getUsageMessage(), $s->getAliases());
+        $this->setPermission($s->getPermission());
 
         $rParams = $method->getParameters();
         if (0 === \count($rParams)) {
@@ -82,6 +75,7 @@ class CommandOverload extends Command implements PluginOwned
             default => throw new InvalidArgumentException("\$method's first parameter is not of type Player or CommandSender!"),
         };
 
+        $defaultUsage = '';
         foreach ($rParams as $i => $p) {
             if (0 === $i) {
                 continue;
@@ -94,7 +88,15 @@ class CommandOverload extends Command implements PluginOwned
             if (null === $param) {
                 throw new InvalidArgumentException("\$method's parameter at index {$i} is of an unregistered type!");
             }
+
+            $pName = strtolower($p->getName());
+            $pType = $param->getUsageType();
+            $defaultUsage .= "<{$pName}: {$pType}> ";
             $this->params[] = $param;
+        }
+
+        if (null === $s->getUsageMessage() && '' !== $defaultUsage) {
+            $this->setUsage(trim($defaultUsage));
         }
     }
 

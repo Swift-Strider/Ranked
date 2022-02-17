@@ -37,4 +37,10 @@ abstract class CommandParameter
      * @throws ValidationException
      */
     abstract public function get(CommandArgs $args): mixed;
+
+    /**
+     * The type used in default usage.
+     * Ex: With `/cmd <param: int>`, getUsageType returned "int".
+     */
+    abstract public function getUsageType(): string;
 }

@@ -41,4 +41,9 @@ class IntParameter extends CommandParameter
 
         return (int) $value;
     }
+
+    public function getUsageType(): string
+    {
+        return 'int';
+    }
 }

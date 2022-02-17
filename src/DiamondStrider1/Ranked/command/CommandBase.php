@@ -68,11 +68,7 @@ abstract class CommandBase
 
             try {
                 $overloads[] = new CommandOverload(
-                    $s->getName(),
-                    $s->getPermission(),
-                    $s->getDescription(),
-                    $s->getUsageMessage(),
-                    $s->getAliases(),
+                    $s,
                     $m,
                     $this
                 );

@@ -30,6 +30,7 @@ namespace DiamondStrider1\Ranked\command;
 
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\lang\Translatable;
 use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginOwned;
 
@@ -46,9 +47,18 @@ class MountedCommand extends Command implements PluginOwned
         parent::__construct($name, $base->getCommandGroup()->getDescription());
 
         $this->setPermission($base->getCommandGroup()->getPermission());
+
+        $usage = '';
         foreach ($this->base->getOverloads() as $overload) {
             $this->overloadMap[$overload->getName()] = $overload;
+            $oUsage = $overload->getUsage();
+            if ($oUsage instanceof Translatable) {
+                $oUsage = $oUsage->getText();
+            }
+            $usage .= "/{$name} {$overload->getName()} {$oUsage} OR ";
         }
+        // Trim trailing ' OR '
+        $this->setUsage(substr($usage, 0, \strlen($usage) - 4));
     }
 
     public function execute(CommandSender $sender, string $label, array $args)

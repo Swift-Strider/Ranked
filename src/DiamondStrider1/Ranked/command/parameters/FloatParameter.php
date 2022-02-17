@@ -41,4 +41,9 @@ class FloatParameter extends CommandParameter
 
         return (float) $value;
     }
+
+    public function getUsageType(): string
+    {
+        return 'float';
+    }
 }

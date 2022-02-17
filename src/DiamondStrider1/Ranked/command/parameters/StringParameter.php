@@ -41,4 +41,9 @@ class StringParameter extends CommandParameter
 
         return $value;
     }
+
+    public function getUsageType(): string
+    {
+        return 'string';
+    }
 }
