@@ -58,7 +58,7 @@ class MountedCommand extends Command implements PluginOwned
         }
 
         $overloadName = array_shift($args);
-        if (null === $overloadName) {
+        if (null === $overloadName || !isset($this->overloadMap[$overloadName])) {
             $sender->sendMessage('§cThat subcommand does not exist!');
             $sender->sendMessage('§cTry: '.implode(', ', array_keys($this->overloadMap)));
 
