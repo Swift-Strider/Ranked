@@ -28,11 +28,15 @@ declare(strict_types=1);
 
 namespace DiamondStrider1\Ranked\command;
 
+use DiamondStrider1\Ranked\form\MenuForm;
+use Generator;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\lang\Translatable;
+use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginOwned;
+use SOFe\AwaitGenerator\Await;
 
 class MountedCommand extends Command implements PluginOwned
 {
@@ -67,12 +71,47 @@ class MountedCommand extends Command implements PluginOwned
             return;
         }
 
+        Await::g2c($this->executeAsync($sender, $label, $args));
+    }
+
+    /**
+     * @param string[] $args
+     */
+    public function executeAsync(CommandSender $sender, string $label, array $args): Generator
+    {
         $overloadName = array_shift($args);
         if (null === $overloadName || !isset($this->overloadMap[$overloadName])) {
-            $sender->sendMessage('§cThat subcommand does not exist!');
-            $sender->sendMessage('§cTry: '.implode(', ', array_keys($this->overloadMap)));
+            if (!$sender instanceof Player) {
+                $sender->sendMessage('§cThat subcommand does not exist!');
+                $sender->sendMessage('§cTry: '.implode(', ', array_keys($this->overloadMap)));
 
-            return;
+                return;
+            }
+
+            $form = MenuForm::create()
+                ->title("Running /{$label}")
+                ->content("§cThat subcommand does not exist!\n\n§rTry one of these, instead.")
+            ;
+
+            $indexToNameMap = [];
+            foreach (array_keys($this->overloadMap) as $name) {
+                $indexToNameMap[] = $name;
+                $form->button("§2{$name}");
+            }
+            $form->queryPlayer($sender)
+                ->onCompletion(yield, yield Await::REJECT)
+            ;
+
+            $response = yield Await::ONCE;
+            if (null === $response) {
+                $sender->sendMessage('§cThat subcommand does not exist!');
+                $sender->sendMessage('§cTry: '.implode(', ', array_keys($this->overloadMap)));
+
+                return;
+            }
+
+            // The player's response is validated by CustomForm API
+            $overloadName = $indexToNameMap[$response];
         }
 
         $overload = $this->overloadMap[$overloadName];
