@@ -156,6 +156,7 @@ class CommandOverload extends Command implements PluginOwned
                     }
 
                     $args = new CommandArgs(explode(' ', $value), $label);
+
                     try {
                         $args->prepare(); // This is redundant, but who cares.
                         $params[] = $p->get($args);
