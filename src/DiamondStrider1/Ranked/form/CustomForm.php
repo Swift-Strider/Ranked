@@ -154,7 +154,8 @@ final class CustomForm
         $validator = function ($data) {
             if (null === $data) {
                 return;
-            } elseif (!\is_array($data)) {
+            }
+            if (!\is_array($data)) {
                 throw new FormValidationException('Expected a response of type int or null, got type '.\gettype($data).' instead!');
             }
             foreach ($this->content as $i => $el) {
