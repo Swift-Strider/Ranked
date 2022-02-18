@@ -83,7 +83,7 @@ final class MenuForm
     }
 
     /**
-     * @phpstan-return Promise<bool>
+     * @phpstan-return Promise<int|null>
      */
     public function queryPlayer(Player $player): Promise
     {

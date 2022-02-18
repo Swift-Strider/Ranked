@@ -136,7 +136,7 @@ final class CustomForm
     }
 
     /**
-     * @phpstan-return Promise<bool>
+     * @phpstan-return Promise<null|array<int, mixed>>
      */
     public function queryPlayer(Player $player): Promise
     {
