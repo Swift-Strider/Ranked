@@ -1,16 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\command\\\\CommandOverload\\:\\:executeAsync\\(\\) return type has no value type specified in iterable type Generator\\.$#"
-			count: 1
-			path: src/DiamondStrider1/Ranked/command/CommandOverload.php
-
-		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\command\\\\MountedCommand\\:\\:executeAsync\\(\\) return type has no value type specified in iterable type Generator\\.$#"
-			count: 1
-			path: src/DiamondStrider1/Ranked/command/MountedCommand.php
-
-		-
 			message: "#^Left side of && is always false\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/config/Manager.php

@@ -28,20 +28,21 @@ declare(strict_types=1);
 
 namespace DiamondStrider1\Ranked\command;
 
+use ArrayIterator;
+use AssertionError;
 use DiamondStrider1\Ranked\command\attributes\CommandSettings;
 use DiamondStrider1\Ranked\command\parameters\CommandParameter;
 use DiamondStrider1\Ranked\command\parameters\ParameterRegister;
 use DiamondStrider1\Ranked\form\CustomForm;
 use DiamondStrider1\Ranked\Loader;
-use Generator;
 use InvalidArgumentException;
+use Iterator;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginOwned;
 use ReflectionMethod;
 use ReflectionNamedType;
-use SOFe\AwaitGenerator\Await;
 
 class CommandOverload extends Command implements PluginOwned
 {
@@ -114,7 +115,29 @@ class CommandOverload extends Command implements PluginOwned
             return;
         }
 
-        Await::g2c($this->executeAsync($sender, $label, $args));
+        $args = new CommandArgs($args, $label);
+        $validParams = [$sender];
+        $remainingParams = new ArrayIterator($this->params);
+
+        try {
+            while ($remainingParams->valid()) {
+                $p = $remainingParams->current();
+                $args->prepare();
+                $validParams[] = $p->get($args);
+                $remainingParams->next();
+            }
+        } catch (ValidationException $e) {
+            if (!$sender instanceof Player) {
+                $sender->sendMessage($e->getMessage());
+
+                return;
+            }
+
+            $this->promptPlayer($sender, $label, $validParams, $remainingParams, $e);
+
+            return;
+        }
+        $this->method->invokeArgs($this->owner, [$sender] + $validParams);
     }
 
     public function getOwningPlugin(): Loader
@@ -123,52 +146,50 @@ class CommandOverload extends Command implements PluginOwned
     }
 
     /**
-     * @param string[] $args
+     * @param array<int, mixed>          $validParams
+     * @param Iterator<CommandParameter> $remainingParams
      */
-    private function executeAsync(CommandSender $sender, string $label, array $args): Generator
+    private function promptPlayer(Player $sender, string $label, array $validParams, Iterator $remainingParams, ValidationException $e): void
     {
-        $args = new CommandArgs($args, $label);
-        $params = [$sender];
-        foreach ($this->params as $p) {
-            try {
-                $args->prepare();
-                $params[] = $p->get($args);
-            } catch (ValidationException $e) {
-                if (!$sender instanceof Player) {
-                    $sender->sendMessage($e->getMessage());
+        $error = $e->getMessage();
+        CustomForm::create()
+            ->title("Running \"/{$label}\"")
+            ->label('§c'.$e->getMessage())
+            ->input('Fill in missing arguments here.')
+            ->queryPlayer($sender)
+            ->onCompletion(function ($response) use ($sender, $label, $validParams, $remainingParams, $error) {
+                $value = $response[1] ?? null;
+                if (null === $value) {
+                    $sender->sendMessage($error);
 
                     return;
                 }
+                if (!\is_string($value)) {
+                    throw new AssertionError('CustomForm should have ensured that $value is a string!');
+                }
 
-                $notComplete = true;
-                while ($notComplete) {
-                    CustomForm::create()
-                        ->title("Running \"/{$label}\"")
-                        ->label('§c'.$e->getMessage())
-                        ->input('Fill in missing arguments here.')
-                        ->queryPlayer($sender)
-                        ->onCompletion(yield, yield Await::REJECT)
-                    ;
+                $args = new CommandArgs(explode(' ', $value), $label);
 
-                    $value = (yield Await::ONCE)[1] ?? null;
-                    if (null === $value) {
+                try {
+                    while ($remainingParams->valid()) {
+                        $p = $remainingParams->current();
+                        $args->prepare();
+                        $validParams[] = $p->get($args);
+                        $remainingParams->next();
+                    }
+                } catch (ValidationException $e) {
+                    if (!$sender instanceof Player) {
                         $sender->sendMessage($e->getMessage());
 
                         return;
                     }
 
-                    $args = new CommandArgs(explode(' ', $value), $label);
+                    $this->promptPlayer($sender, $label, $validParams, $remainingParams, $e);
 
-                    try {
-                        $args->prepare(); // This is redundant, but who cares.
-                        $params[] = $p->get($args);
-                        $notComplete = false;
-                    } catch (ValidationException $e) {
-                        // set $e to new exception
-                    }
+                    return;
                 }
-            }
-        }
-        $this->method->invokeArgs($this->owner, [$sender] + $params);
+                $this->method->invokeArgs($this->owner, [$sender] + $validParams);
+            }, function (): void {})
+        ;
     }
 }
