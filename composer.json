@@ -13,6 +13,10 @@
     "scripts": {
         "phpstan": "vendor/bin/phpstan analyze src",
         "fmt": "vendor/bin/php-cs-fixer fix",
-        "generate_lang": "php build/generate_lang.php"
+        "generate_lang": "php build/generate_lang.php",
+        "generate_db": "php build/generate_db.php",
+        "post-install-cmd": [
+            "curl -L https://poggit.pmmp.io/v.dl/poggit/libasynql/libasynql/^4.0.0 > build/libasynql.phar"
+        ]
     }
 }

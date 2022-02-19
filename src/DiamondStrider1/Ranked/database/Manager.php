@@ -75,12 +75,12 @@ class Manager implements IManager
             $this->database->setLogger($this->logger);
         }
 
-        $this->queryRunner = new QueryRunner(
-            $this->database,
-            'sqlite' === $this->config->type
-        );
+        $this->queryRunner = new QueryRunner($this->database);
 
-        yield from $this->queryRunner->init();
+        yield from $this->queryRunner->initRanks();
+        yield from $this->queryRunner->initRankpermissions();
+        yield from $this->queryRunner->initPlayers();
+        yield from $this->queryRunner->initRankPlayers();
     }
 
     public function getQueryRunner(): QueryRunner
