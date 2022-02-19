@@ -29,8 +29,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:42
-     * - resources/db_stmts/sqlite.sql:41
+     * - resources/db_stmts/mysql.sql:43
+     * - resources/db_stmts/sqlite.sql:42
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
      */
     public function initRankPlayers() : Generator {
@@ -62,8 +62,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:85
-     * - resources/db_stmts/sqlite.sql:84
+     * - resources/db_stmts/mysql.sql:86
+     * - resources/db_stmts/sqlite.sql:85
      * @param int $rank_id
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
      */
@@ -74,8 +74,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:72
-     * - resources/db_stmts/sqlite.sql:71
+     * - resources/db_stmts/mysql.sql:73
+     * - resources/db_stmts/sqlite.sql:72
      * @param string $permission
      * @param int $rank_id
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
@@ -87,8 +87,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:79
-     * - resources/db_stmts/sqlite.sql:78
+     * - resources/db_stmts/mysql.sql:80
+     * - resources/db_stmts/sqlite.sql:79
      * @param string $permission
      * @param int $rank_id
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
@@ -100,8 +100,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:103
-     * - resources/db_stmts/sqlite.sql:102
+     * - resources/db_stmts/mysql.sql:104
+     * - resources/db_stmts/sqlite.sql:103
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
      */
     public function playersList() : Generator {
@@ -111,8 +111,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:95
-     * - resources/db_stmts/sqlite.sql:94
+     * - resources/db_stmts/mysql.sql:96
+     * - resources/db_stmts/sqlite.sql:95
      * @param string $display_name
      * @param string $player_uuid
      * @param string $username
@@ -125,8 +125,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:100
-     * - resources/db_stmts/sqlite.sql:99
+     * - resources/db_stmts/mysql.sql:101
+     * - resources/db_stmts/sqlite.sql:100
      * @param string $player_uuid
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
      */
@@ -137,8 +137,20 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:133
-     * - resources/db_stmts/sqlite.sql:132
+     * - resources/db_stmts/mysql.sql:125
+     * - resources/db_stmts/sqlite.sql:124
+     * @param string $time
+     * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
+     */
+    public function rankPlayersCleanExpired(string $time, ) : Generator {
+        $this->conn->executeChange("ranked.rank_players.clean_expired", ["time" => $time, ], yield Await::RESOLVE, yield Await::REJECT);
+        return yield Await::ONCE;
+    }
+
+    /**
+     * <h4>Declared in:</h4>
+     * - resources/db_stmts/mysql.sql:139
+     * - resources/db_stmts/sqlite.sql:138
      * @param int $rank_id
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
      */
@@ -149,8 +161,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:125
-     * - resources/db_stmts/sqlite.sql:124
+     * - resources/db_stmts/mysql.sql:131
+     * - resources/db_stmts/sqlite.sql:130
      * @param string $player_uuid
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
      */
@@ -161,8 +173,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:112
-     * - resources/db_stmts/sqlite.sql:111
+     * - resources/db_stmts/mysql.sql:113
+     * - resources/db_stmts/sqlite.sql:112
      * @param string $player_uuid
      * @param int $rank_id
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
@@ -174,8 +186,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:119
-     * - resources/db_stmts/sqlite.sql:118
+     * - resources/db_stmts/mysql.sql:120
+     * - resources/db_stmts/sqlite.sql:119
      * @param string $player_uuid
      * @param int $rank_id
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
@@ -187,8 +199,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:50
-     * - resources/db_stmts/sqlite.sql:49
+     * - resources/db_stmts/mysql.sql:51
+     * - resources/db_stmts/sqlite.sql:50
      * @param string $name
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
      */
@@ -199,8 +211,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:63
-     * - resources/db_stmts/sqlite.sql:62
+     * - resources/db_stmts/mysql.sql:64
+     * - resources/db_stmts/sqlite.sql:63
      * @param string $name
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
      */
@@ -211,8 +223,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:58
-     * - resources/db_stmts/sqlite.sql:57
+     * - resources/db_stmts/mysql.sql:59
+     * - resources/db_stmts/sqlite.sql:58
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
      */
     public function ranksList() : Generator {
@@ -222,8 +234,8 @@ final class QueryRunner{
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:55
-     * - resources/db_stmts/sqlite.sql:54
+     * - resources/db_stmts/mysql.sql:56
+     * - resources/db_stmts/sqlite.sql:55
      * @param int $id
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
      */

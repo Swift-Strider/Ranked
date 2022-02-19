@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS Players(
 CREATE TABLE IF NOT EXISTS RankPlayers(
     rank_id INTEGER NOT NULL,
     player_uuid VARCHAR(50) NOT NULL,
+    expiraton_date DATETIME NOT NULL,
     PRIMARY KEY(rank_id, player_uuid),
     FOREIGN KEY(rank_id)
         REFERENCES Ranks(id)
@@ -115,6 +116,11 @@ REPLACE INTO RankPlayers VALUES(
 DELETE FROM RankPlayers rp
 WHERE rp.rank_id = :rank_id
     AND rp.player_uuid = :player_uuid;
+-- #    }
+-- #    { clean_expired
+-- #      :time string
+DELETE FROM RankPlayers rp
+WHERE rp.expiration_date < :time
 -- #    }
 -- #    { list_ranks
 -- #      :player_uuid string
