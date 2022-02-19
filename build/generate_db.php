@@ -40,8 +40,11 @@ set_error_handler('exception_error_handler');
 $fqn = 'DiamondStrider1\\Ranked\\database\\QueryRunner';
 
 $libasynql = realpath(__DIR__).'/libasynql.phar';
-exec("php {$libasynql} fx src/ {$fqn} --struct \"final class\" --spaces 4 --sql resources --prefix ranked");
+exec("php {$libasynql} fx src/ {$fqn} --struct \"final class\" --spaces 4 --sql resources --prefix ranked", $out);
+foreach ($out as $o) {
+    echo '# '.$o."\n";
+}
 $file = realpath(__DIR__).'/../src/'.str_replace('\\', '/', $fqn).'.php';
 $contents = file_get_contents($file);
-$contents = preg_replace('/\* Created from (.*\.sql,?)*/', '* Created from resources directory', $contents, 1);
+$contents = preg_replace('/\* Created from (.*\.sql,?)*/', '* Made from resources directory', $contents, 1);
 file_put_contents($file, $contents);
