@@ -46,15 +46,15 @@ class Manager implements IManager
     private Logger $logger;
     private ConfigManager $configManager;
     private Config $config;
-    private DataConnector $database;
-    private QueryRunner $queryRunner;
+    private DataConnector $conn;
+    private Database $db;
 
     public function onLoad(): Generator
     {
         $this->config = $this->configManager->getConfig()->database;
 
         try {
-            $this->database = libasynql::create(
+            $this->conn = libasynql::create(
                 $this->plugin,
                 $this->config->convertToArray(),
                 [
@@ -72,26 +72,28 @@ class Manager implements IManager
         }
 
         if ($this->config->logQueries) {
-            $this->database->setLogger($this->logger);
+            $this->conn->setLogger($this->logger);
         }
 
-        $this->queryRunner = new QueryRunner($this->database);
+        $queryRunner = new QueryRunner($this->conn);
 
-        yield from $this->queryRunner->initRanks();
-        yield from $this->queryRunner->initRankpermissions();
-        yield from $this->queryRunner->initPlayers();
-        yield from $this->queryRunner->initRankPlayers();
+        yield from $queryRunner->initRanks();
+        yield from $queryRunner->initRankpermissions();
+        yield from $queryRunner->initPlayers();
+        yield from $queryRunner->initRankPlayers();
+
+        $this->db = new Database($queryRunner);
     }
 
-    public function getQueryRunner(): QueryRunner
+    public function getDB(): Database
     {
-        return $this->queryRunner;
+        return $this->db;
     }
 
     public function dispose(): void
     {
-        if (isset($this->database)) {
-            $this->database->close();
+        if (isset($this->conn)) {
+            $this->conn->close();
         }
     }
 }
