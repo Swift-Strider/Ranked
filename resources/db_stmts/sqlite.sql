@@ -128,6 +128,14 @@ SELECT rp.rank_id
 FROM RankPlayers rp
 WHERE rp.player_uuid = :player_uuid;
 -- #    }
+-- #    { list_permissions
+-- #      :player_uuid string
+SELECT rperms.permission
+FROM RankPlayers rplayers
+INNER JOIN RankPermissions rperms
+ON rplayers.rank_id = rperms.rank_id
+WHERE rplayers.player_uuid = :player_uuid;
+-- #    }
 -- #    { list_players
 -- #      :rank_id int
 SELECT rp.player_uuid, p.username, p.display_name

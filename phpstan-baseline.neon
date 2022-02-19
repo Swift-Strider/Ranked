@@ -106,6 +106,11 @@ parameters:
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankPlayersListPermissions\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
 			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankPlayersListPlayers\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
@@ -152,7 +157,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$onSelect of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeSelect\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
-			count: 6
+			count: 7
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
@@ -172,7 +177,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#4 \\$onError of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeSelect\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
-			count: 6
+			count: 7
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
