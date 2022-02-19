@@ -28,27 +28,28 @@ declare(strict_types=1);
 
 namespace DiamondStrider1\Ranked\command\parameters;
 
+use DiamondStrider1\Ranked\command\CommandArgs;
 use pocketmine\player\Player;
+use pocketmine\Server;
 
-final class ParameterRegister
+class PlayerParameter extends CommandParameter
 {
-    /** @var array<string, CommandParameter> */
-    private static array $typeMap = [];
-
-    public static function register(string $type, CommandParameter $param): void
+    public function get(CommandArgs $args): Player
     {
-        self::$typeMap[$type] = $param;
-    }
-
-    public static function get(string $type): ?CommandParameter
-    {
-        if (empty(self::$typeMap)) {
-            self::register('string', new StringParameter());
-            self::register('int', new IntParameter());
-            self::register('float', new FloatParameter());
-            self::register(Player::class, new PlayerParameter());
+        $value = $args->take();
+        if (null === $value) {
+            $args->fail('A player\'s name was not given!');
+        }
+        $player = Server::getInstance()->getPlayerByPrefix($value);
+        if (null === $player) {
+            $args->fail("The player \"{$value}\" is not online!");
         }
 
-        return self::$typeMap[$type] ?? null;
+        return $player;
+    }
+
+    public function getUsageType(): string
+    {
+        return 'player';
     }
 }
