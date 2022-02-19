@@ -51,88 +51,128 @@ parameters:
 			path: src/DiamondStrider1/Ranked/database/Manager.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:createRank\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:initPlayers\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:getRankId\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:initRankPlayers\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:init\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:initRankpermissions\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:listPermissions\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:initRanks\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:listPlayers\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:permissionsList\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:listPlayersOfRank\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:permissionsSet\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:listRanks\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:permissionsUnset\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:listRanksOfPlayer\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:playersList\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:lock\\(\\) has parameter \\$closure with no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:playersSet\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:lock\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:playersUnset\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:removeRank\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankPlayersCleanExpired\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:setPermission\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankPlayersListPlayers\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:setPlayer\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankPlayersListRanks\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:setPlayerRank\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankPlayersSet\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:unsetPermission\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankPlayersUnset\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:unsetPlayer\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:ranksCreate\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:unsetPlayerRank\\(\\) return type has no value type specified in iterable type Generator\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:ranksGet\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
 			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:ranksList\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:ranksRemove\\(\\) should return int but returns mixed\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Parameter \\#3 \\$onInserted of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeInsert\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Parameter \\#3 \\$onSelect of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeSelect\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
+			count: 6
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Parameter \\#3 \\$onSuccess of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeChange\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
+			count: 12
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Parameter \\#4 \\$onError of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeChange\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
+			count: 12
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Parameter \\#4 \\$onError of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeInsert\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Parameter \\#4 \\$onError of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeSelect\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
+			count: 6
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
