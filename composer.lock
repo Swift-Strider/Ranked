@@ -821,16 +821,16 @@
         },
         {
             "name": "pocketmine/bedrock-data",
-            "version": "1.5.0+bedrock-1.18.0",
+            "version": "1.6.0+bedrock-1.18.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pmmp/BedrockData.git",
-                "reference": "482c679aa5ed0b81c088c2b1ff0b8110a94c8a6c"
+                "reference": "e98c511584a7bd58a95986374d2df4b04c6a2ba0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/BedrockData/zipball/482c679aa5ed0b81c088c2b1ff0b8110a94c8a6c",
-                "reference": "482c679aa5ed0b81c088c2b1ff0b8110a94c8a6c",
+                "url": "https://api.github.com/repos/pmmp/BedrockData/zipball/e98c511584a7bd58a95986374d2df4b04c6a2ba0",
+                "reference": "e98c511584a7bd58a95986374d2df4b04c6a2ba0",
                 "shasum": ""
             },
             "type": "library",
@@ -841,9 +841,9 @@
             "description": "Blobs of data generated from Minecraft: Bedrock Edition, used by PocketMine-MP",
             "support": {
                 "issues": "https://github.com/pmmp/BedrockData/issues",
-                "source": "https://github.com/pmmp/BedrockData/tree/bedrock-1.18.0"
+                "source": "https://github.com/pmmp/BedrockData/tree/bedrock-1.18.10"
             },
-            "time": "2021-11-30T18:30:46+00:00"
+            "time": "2022-02-08T19:13:47+00:00"
         },
         {
             "name": "pocketmine/bedrock-protocol",
@@ -2823,12 +2823,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Mbstring\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
