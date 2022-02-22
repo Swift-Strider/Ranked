@@ -31,6 +31,36 @@ parameters:
 			path: src/DiamondStrider1/Ranked/database/Database.php
 
 		-
+			message: "#^Parameter \\#1 \\$id of class DiamondStrider1\\\\Ranked\\\\struct\\\\Rank constructor expects int, mixed given\\.$#"
+			count: 2
+			path: src/DiamondStrider1/Ranked/database/Db2Struct.php
+
+		-
+			message: "#^Parameter \\#1 \\$uuid of class DiamondStrider1\\\\Ranked\\\\struct\\\\RankedPlayer constructor expects string, mixed given\\.$#"
+			count: 2
+			path: src/DiamondStrider1/Ranked/database/Db2Struct.php
+
+		-
+			message: "#^Parameter \\#2 \\$name of class DiamondStrider1\\\\Ranked\\\\struct\\\\Rank constructor expects string, mixed given\\.$#"
+			count: 2
+			path: src/DiamondStrider1/Ranked/database/Db2Struct.php
+
+		-
+			message: "#^Parameter \\#2 \\$username of class DiamondStrider1\\\\Ranked\\\\struct\\\\RankedPlayer constructor expects string, mixed given\\.$#"
+			count: 2
+			path: src/DiamondStrider1/Ranked/database/Db2Struct.php
+
+		-
+			message: "#^Parameter \\#3 \\$displayName of class DiamondStrider1\\\\Ranked\\\\struct\\\\RankedPlayer constructor expects string, mixed given\\.$#"
+			count: 2
+			path: src/DiamondStrider1/Ranked/database/Db2Struct.php
+
+		-
+			message: "#^Parameter \\#3 \\$expirationDate of class DiamondStrider1\\\\Ranked\\\\struct\\\\RankInstance constructor expects string\\|null, mixed given\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/Db2Struct.php
+
+		-
 			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\Manager\\:\\:get\\(\\) return type has no value type specified in iterable type Generator\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/Manager.php
