@@ -21,8 +21,78 @@ final class QueryRunner
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:29
-     * - resources/db_stmts/sqlite.sql:28.
+     * - resources/db_stmts/mysql.sql:85
+     * - resources/db_stmts/sqlite.sql:84.
+     *
+     * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
+     */
+    public function inheritanceCreate(int $parent_id, int $child_id, ): Generator
+    {
+        $this->conn->executeInsert('ranked.inheritance.create', ['parent_id' => $parent_id, 'child_id' => $child_id], yield Await::RESOLVE, yield Await::REJECT);
+
+        return yield Await::ONCE;
+    }
+
+    /**
+     * <h4>Declared in:</h4>
+     * - resources/db_stmts/mysql.sql:95
+     * - resources/db_stmts/sqlite.sql:94.
+     *
+     * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
+     */
+    public function inheritanceList(): Generator
+    {
+        $this->conn->executeSelect('ranked.inheritance.list', [], yield Await::RESOLVE, yield Await::REJECT);
+
+        return yield Await::ONCE;
+    }
+
+    /**
+     * <h4>Declared in:</h4>
+     * - resources/db_stmts/mysql.sql:92
+     * - resources/db_stmts/sqlite.sql:91.
+     *
+     * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
+     */
+    public function inheritanceRemove(int $parent_id, int $child_id, ): Generator
+    {
+        $this->conn->executeChange('ranked.inheritance.remove', ['parent_id' => $parent_id, 'child_id' => $child_id], yield Await::RESOLVE, yield Await::REJECT);
+
+        return yield Await::ONCE;
+    }
+
+    /**
+     * <h4>Declared in:</h4>
+     * - resources/db_stmts/mysql.sql:18
+     * - resources/db_stmts/sqlite.sql:17.
+     *
+     * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
+     */
+    public function initInheritance(): Generator
+    {
+        $this->conn->executeChange('ranked.init.inheritance', [], yield Await::RESOLVE, yield Await::REJECT);
+
+        return yield Await::ONCE;
+    }
+
+    /**
+     * <h4>Declared in:</h4>
+     * - resources/db_stmts/mysql.sql:28
+     * - resources/db_stmts/sqlite.sql:27.
+     *
+     * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
+     */
+    public function initPermissions(): Generator
+    {
+        $this->conn->executeChange('ranked.init.permissions', [], yield Await::RESOLVE, yield Await::REJECT);
+
+        return yield Await::ONCE;
+    }
+
+    /**
+     * <h4>Declared in:</h4>
+     * - resources/db_stmts/mysql.sql:36
+     * - resources/db_stmts/sqlite.sql:35.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
      */
@@ -35,28 +105,14 @@ final class QueryRunner
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:43
-     * - resources/db_stmts/sqlite.sql:42.
+     * - resources/db_stmts/mysql.sql:50
+     * - resources/db_stmts/sqlite.sql:49.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
      */
-    public function initRankPlayers(): Generator
+    public function initRankInstances(): Generator
     {
-        $this->conn->executeChange('ranked.init.rank_players', [], yield Await::RESOLVE, yield Await::REJECT);
-
-        return yield Await::ONCE;
-    }
-
-    /**
-     * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:21
-     * - resources/db_stmts/sqlite.sql:20.
-     *
-     * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
-     */
-    public function initRankpermissions(): Generator
-    {
-        $this->conn->executeChange('ranked.init.rankpermissions', [], yield Await::RESOLVE, yield Await::REJECT);
+        $this->conn->executeChange('ranked.init.rank_instances', [], yield Await::RESOLVE, yield Await::REJECT);
 
         return yield Await::ONCE;
     }
@@ -77,8 +133,22 @@ final class QueryRunner
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:86
-     * - resources/db_stmts/sqlite.sql:85.
+     * - resources/db_stmts/mysql.sql:120
+     * - resources/db_stmts/sqlite.sql:119.
+     *
+     * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
+     */
+    public function permissionsCreate(string $permission, int $rank_id, ): Generator
+    {
+        $this->conn->executeChange('ranked.permissions.create', ['permission' => $permission, 'rank_id' => $rank_id], yield Await::RESOLVE, yield Await::REJECT);
+
+        return yield Await::ONCE;
+    }
+
+    /**
+     * <h4>Declared in:</h4>
+     * - resources/db_stmts/mysql.sql:133
+     * - resources/db_stmts/sqlite.sql:132.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
      */
@@ -91,36 +161,36 @@ final class QueryRunner
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:73
-     * - resources/db_stmts/sqlite.sql:72.
+     * - resources/db_stmts/mysql.sql:127
+     * - resources/db_stmts/sqlite.sql:126.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
      */
-    public function permissionsSet(string $permission, int $rank_id, ): Generator
+    public function permissionsRemove(string $permission, int $rank_id, ): Generator
     {
-        $this->conn->executeChange('ranked.permissions.set', ['permission' => $permission, 'rank_id' => $rank_id], yield Await::RESOLVE, yield Await::REJECT);
+        $this->conn->executeChange('ranked.permissions.remove', ['permission' => $permission, 'rank_id' => $rank_id], yield Await::RESOLVE, yield Await::REJECT);
 
         return yield Await::ONCE;
     }
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:80
-     * - resources/db_stmts/sqlite.sql:79.
+     * - resources/db_stmts/mysql.sql:143
+     * - resources/db_stmts/sqlite.sql:142.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
      */
-    public function permissionsUnset(string $permission, int $rank_id, ): Generator
+    public function playersCreate(string $display_name, string $player_uuid, string $username, ): Generator
     {
-        $this->conn->executeChange('ranked.permissions.unset', ['permission' => $permission, 'rank_id' => $rank_id], yield Await::RESOLVE, yield Await::REJECT);
+        $this->conn->executeChange('ranked.players.create', ['display_name' => $display_name, 'player_uuid' => $player_uuid, 'username' => $username], yield Await::RESOLVE, yield Await::REJECT);
 
         return yield Await::ONCE;
     }
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:104
-     * - resources/db_stmts/sqlite.sql:103.
+     * - resources/db_stmts/mysql.sql:152
+     * - resources/db_stmts/sqlite.sql:151.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
      */
@@ -133,120 +203,92 @@ final class QueryRunner
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:96
-     * - resources/db_stmts/sqlite.sql:95.
+     * - resources/db_stmts/mysql.sql:148
+     * - resources/db_stmts/sqlite.sql:147.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
      */
-    public function playersSet(string $display_name, string $player_uuid, string $username, ): Generator
+    public function playersRemove(string $player_uuid, ): Generator
     {
-        $this->conn->executeChange('ranked.players.set', ['display_name' => $display_name, 'player_uuid' => $player_uuid, 'username' => $username], yield Await::RESOLVE, yield Await::REJECT);
+        $this->conn->executeChange('ranked.players.remove', ['player_uuid' => $player_uuid], yield Await::RESOLVE, yield Await::REJECT);
 
         return yield Await::ONCE;
     }
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:101
-     * - resources/db_stmts/sqlite.sql:100.
-     *
-     * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
-     */
-    public function playersUnset(string $player_uuid, ): Generator
-    {
-        $this->conn->executeChange('ranked.players.unset', ['player_uuid' => $player_uuid], yield Await::RESOLVE, yield Await::REJECT);
-
-        return yield Await::ONCE;
-    }
-
-    /**
-     * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:125
-     * - resources/db_stmts/sqlite.sql:124.
-     *
-     * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
-     */
-    public function rankPlayersCleanExpired(string $time, ): Generator
-    {
-        $this->conn->executeChange('ranked.rank_players.clean_expired', ['time' => $time], yield Await::RESOLVE, yield Await::REJECT);
-
-        return yield Await::ONCE;
-    }
-
-    /**
-     * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:139
-     * - resources/db_stmts/sqlite.sql:138.
+     * - resources/db_stmts/mysql.sql:76
+     * - resources/db_stmts/sqlite.sql:75.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
      */
-    public function rankPlayersListPermissions(string $player_uuid, ): Generator
+    public function queryPlayersOfRank(int $rank_id, ): Generator
     {
-        $this->conn->executeSelect('ranked.rank_players.list_permissions', ['player_uuid' => $player_uuid], yield Await::RESOLVE, yield Await::REJECT);
+        $this->conn->executeSelect('ranked.query.players_of_rank', ['rank_id' => $rank_id], yield Await::RESOLVE, yield Await::REJECT);
 
         return yield Await::ONCE;
     }
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:147
-     * - resources/db_stmts/sqlite.sql:146.
+     * - resources/db_stmts/mysql.sql:64
+     * - resources/db_stmts/sqlite.sql:63.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
      */
-    public function rankPlayersListPlayers(int $rank_id, ): Generator
+    public function queryRanksOfPlayer(string $player_uuid, ): Generator
     {
-        $this->conn->executeSelect('ranked.rank_players.list_players', ['rank_id' => $rank_id], yield Await::RESOLVE, yield Await::REJECT);
+        $this->conn->executeSelect('ranked.query.ranks_of_player', ['player_uuid' => $player_uuid], yield Await::RESOLVE, yield Await::REJECT);
 
         return yield Await::ONCE;
     }
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:131
-     * - resources/db_stmts/sqlite.sql:130.
-     *
-     * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
-     */
-    public function rankPlayersListRanks(string $player_uuid, ): Generator
-    {
-        $this->conn->executeSelect('ranked.rank_players.list_ranks', ['player_uuid' => $player_uuid], yield Await::RESOLVE, yield Await::REJECT);
-
-        return yield Await::ONCE;
-    }
-
-    /**
-     * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:113
-     * - resources/db_stmts/sqlite.sql:112.
+     * - resources/db_stmts/mysql.sql:175
+     * - resources/db_stmts/sqlite.sql:174.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
      */
-    public function rankPlayersSet(string $player_uuid, int $rank_id, ): Generator
+    public function rankInstancesCleanExpired(string $time, ): Generator
     {
-        $this->conn->executeChange('ranked.rank_players.set', ['player_uuid' => $player_uuid, 'rank_id' => $rank_id], yield Await::RESOLVE, yield Await::REJECT);
+        $this->conn->executeChange('ranked.rank_instances.clean_expired', ['time' => $time], yield Await::RESOLVE, yield Await::REJECT);
 
         return yield Await::ONCE;
     }
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:120
-     * - resources/db_stmts/sqlite.sql:119.
+     * - resources/db_stmts/mysql.sql:162
+     * - resources/db_stmts/sqlite.sql:161.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
      */
-    public function rankPlayersUnset(string $player_uuid, int $rank_id, ): Generator
+    public function rankInstancesCreate(string $expiration_date, string $player_uuid, int $rank_id, ): Generator
     {
-        $this->conn->executeChange('ranked.rank_players.unset', ['player_uuid' => $player_uuid, 'rank_id' => $rank_id], yield Await::RESOLVE, yield Await::REJECT);
+        $this->conn->executeChange('ranked.rank_instances.create', ['expiration_date' => $expiration_date, 'player_uuid' => $player_uuid, 'rank_id' => $rank_id], yield Await::RESOLVE, yield Await::REJECT);
 
         return yield Await::ONCE;
     }
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:51
-     * - resources/db_stmts/sqlite.sql:50.
+     * - resources/db_stmts/mysql.sql:169
+     * - resources/db_stmts/sqlite.sql:168.
+     *
+     * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
+     */
+    public function rankInstancesRemove(string $player_uuid, int $rank_id, ): Generator
+    {
+        $this->conn->executeChange('ranked.rank_instances.remove', ['player_uuid' => $player_uuid, 'rank_id' => $rank_id], yield Await::RESOLVE, yield Await::REJECT);
+
+        return yield Await::ONCE;
+    }
+
+    /**
+     * <h4>Declared in:</h4>
+     * - resources/db_stmts/mysql.sql:103
+     * - resources/db_stmts/sqlite.sql:102.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
      */
@@ -259,22 +301,8 @@ final class QueryRunner
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:64
-     * - resources/db_stmts/sqlite.sql:63.
-     *
-     * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
-     */
-    public function ranksGet(string $name, ): Generator
-    {
-        $this->conn->executeSelect('ranked.ranks.get', ['name' => $name], yield Await::RESOLVE, yield Await::REJECT);
-
-        return yield Await::ONCE;
-    }
-
-    /**
-     * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:59
-     * - resources/db_stmts/sqlite.sql:58.
+     * - resources/db_stmts/mysql.sql:111
+     * - resources/db_stmts/sqlite.sql:110.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, list<array<string, mixed>>>
      */
@@ -287,8 +315,8 @@ final class QueryRunner
 
     /**
      * <h4>Declared in:</h4>
-     * - resources/db_stmts/mysql.sql:56
-     * - resources/db_stmts/sqlite.sql:55.
+     * - resources/db_stmts/mysql.sql:108
+     * - resources/db_stmts/sqlite.sql:107.
      *
      * @return Generator<mixed, 'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null, mixed, int>
      */

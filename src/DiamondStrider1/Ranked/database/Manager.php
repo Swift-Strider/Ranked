@@ -37,6 +37,7 @@ use Logger;
 use poggit\libasynql\DataConnector;
 use poggit\libasynql\libasynql;
 use poggit\libasynql\SqlError;
+use SOFe\AwaitGenerator\Await;
 
 class Manager implements IManager
 {
@@ -77,10 +78,13 @@ class Manager implements IManager
 
         $queryRunner = new QueryRunner($this->conn);
 
-        yield from $queryRunner->initRanks();
-        yield from $queryRunner->initRankpermissions();
-        yield from $queryRunner->initPlayers();
-        yield from $queryRunner->initRankPlayers();
+        $promises[] = $queryRunner->initRanks();
+        $promises[] = $queryRunner->initInheritance();
+        $promises[] = $queryRunner->initPermissions();
+        $promises[] = $queryRunner->initPlayers();
+        $promises[] = $queryRunner->initRankInstances();
+
+        yield from Await::all($promises);
 
         $this->db = new Database($queryRunner);
     }

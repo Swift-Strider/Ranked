@@ -30,6 +30,7 @@ namespace DiamondStrider1\Ranked\database;
 
 use DiamondStrider1\Ranked\struct\Rank;
 use DiamondStrider1\Ranked\struct\RankedPlayer;
+use DiamondStrider1\Ranked\struct\RankInheritance;
 use DiamondStrider1\Ranked\struct\RankInstance;
 
 /**
@@ -46,6 +47,17 @@ final class Db2Struct
             new Rank($row['rank_id'], $row['rank_name']),
             new RankedPlayer($row['player_uuid'], $row['username'], $row['display_name']),
             $row['expiration_date']
+        );
+    }
+
+    /**
+     * @param array<string, mixed> $row
+     */
+    public static function RankInheritance(array $row): RankInheritance
+    {
+        return new RankInheritance(
+            $row['child_id'],
+            $row['parent_id']
         );
     }
 

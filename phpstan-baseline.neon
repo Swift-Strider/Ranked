@@ -31,6 +31,11 @@ parameters:
 			path: src/DiamondStrider1/Ranked/database/Database.php
 
 		-
+			message: "#^Parameter \\#1 \\$childId of class DiamondStrider1\\\\Ranked\\\\struct\\\\RankInheritance constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/Db2Struct.php
+
+		-
 			message: "#^Parameter \\#1 \\$id of class DiamondStrider1\\\\Ranked\\\\struct\\\\Rank constructor expects int, mixed given\\.$#"
 			count: 2
 			path: src/DiamondStrider1/Ranked/database/Db2Struct.php
@@ -43,6 +48,11 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$name of class DiamondStrider1\\\\Ranked\\\\struct\\\\Rank constructor expects string, mixed given\\.$#"
 			count: 2
+			path: src/DiamondStrider1/Ranked/database/Db2Struct.php
+
+		-
+			message: "#^Parameter \\#2 \\$parentId of class DiamondStrider1\\\\Ranked\\\\struct\\\\RankInheritance constructor expects int, mixed given\\.$#"
+			count: 1
 			path: src/DiamondStrider1/Ranked/database/Db2Struct.php
 
 		-
@@ -86,17 +96,37 @@ parameters:
 			path: src/DiamondStrider1/Ranked/database/Manager.php
 
 		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:inheritanceCreate\\(\\) should return int but returns mixed\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:inheritanceList\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:inheritanceRemove\\(\\) should return int but returns mixed\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:initInheritance\\(\\) should return int but returns mixed\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:initPermissions\\(\\) should return int but returns mixed\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
 			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:initPlayers\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:initRankPlayers\\(\\) should return int but returns mixed\\.$#"
-			count: 1
-			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
-
-		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:initRankpermissions\\(\\) should return int but returns mixed\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:initRankInstances\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
@@ -106,17 +136,22 @@ parameters:
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:permissionsCreate\\(\\) should return int but returns mixed\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
+
+		-
 			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:permissionsList\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:permissionsSet\\(\\) should return int but returns mixed\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:permissionsRemove\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:permissionsUnset\\(\\) should return int but returns mixed\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:playersCreate\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
@@ -126,52 +161,37 @@ parameters:
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:playersSet\\(\\) should return int but returns mixed\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:playersRemove\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:playersUnset\\(\\) should return int but returns mixed\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:queryPlayersOfRank\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankPlayersCleanExpired\\(\\) should return int but returns mixed\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:queryRanksOfPlayer\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankPlayersListPermissions\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankInstancesCleanExpired\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankPlayersListPlayers\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankInstancesCreate\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankPlayersListRanks\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
-			count: 1
-			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
-
-		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankPlayersSet\\(\\) should return int but returns mixed\\.$#"
-			count: 1
-			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
-
-		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankPlayersUnset\\(\\) should return int but returns mixed\\.$#"
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:rankInstancesRemove\\(\\) should return int but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
 			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:ranksCreate\\(\\) should return int but returns mixed\\.$#"
-			count: 1
-			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
-
-		-
-			message: "#^Method DiamondStrider1\\\\Ranked\\\\database\\\\QueryRunner\\:\\:ranksGet\\(\\) should return array\\<int, array\\<string, mixed\\>\\> but returns mixed\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
@@ -187,32 +207,32 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$onInserted of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeInsert\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
-			count: 1
+			count: 2
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
 			message: "#^Parameter \\#3 \\$onSelect of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeSelect\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
-			count: 7
+			count: 6
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
 			message: "#^Parameter \\#3 \\$onSuccess of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeChange\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
-			count: 12
+			count: 14
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
 			message: "#^Parameter \\#4 \\$onError of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeChange\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
-			count: 12
+			count: 14
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
 			message: "#^Parameter \\#4 \\$onError of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeInsert\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
-			count: 1
+			count: 2
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
 			message: "#^Parameter \\#4 \\$onError of method poggit\\\\libasynql\\\\DataConnector\\:\\:executeSelect\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|null, mixed given\\.$#"
-			count: 7
+			count: 6
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-

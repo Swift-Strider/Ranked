@@ -8,10 +8,17 @@ CREATE TABLE IF NOT EXISTS Ranks(
     name TEXT UNIQUE NOT NULL
 );
 -- #    }
--- #    { rankpermissions
+-- #    { inheritance
+CREATE TABLE IF NOT EXISTS Inheritance(
+    child_id INTEGER,
+    parent_id INTEGER,
+    PRIMARY KEY(child_id, parent_id)
+);
+-- #    }
+-- #    { permissions
 CREATE TABLE IF NOT EXISTS RankPermissions(
-    rank_id INTEGER NOT NULL,
-    permission TEXT NOT NULL,
+    rank_id INT,
+    permission VARCHAR(32),
     PRIMARY KEY(rank_id, permission),
     FOREIGN KEY(rank_id)
         REFERENCES Ranks(id)
@@ -20,25 +27,70 @@ CREATE TABLE IF NOT EXISTS RankPermissions(
 -- #    }
 -- #    { players
 CREATE TABLE IF NOT EXISTS Players(
-    player_uuid VARCHAR(50) NOT NULL,
-    username TEXT NOT NULL,
-    display_name TEXT NOT NULL,
-    PRIMARY KEY(player_uuid)
+    uuid VARCHAR(50) NOT NULL,
+    username VARCHAR(32) NOT NULL,
+    display_name VARCHAR(32) NOT NULL,
+    PRIMARY KEY(uuid)
 );
 -- #    }
--- #    { rank_players
-CREATE TABLE IF NOT EXISTS RankPlayers(
-    rank_id INTEGER NOT NULL,
+-- #    { rank_instances
+CREATE TABLE IF NOT EXISTS RankInstances(
+    rank_id INT NOT NULL,
     player_uuid VARCHAR(50) NOT NULL,
-    expiraton_date DATETIME NOT NULL,
+    expiration_date DATETIME,
     PRIMARY KEY(rank_id, player_uuid),
     FOREIGN KEY(rank_id)
         REFERENCES Ranks(id)
         ON DELETE CASCADE,
     FOREIGN KEY(player_uuid)
-        REFERENCES Players(player_uuid)
+        REFERENCES Players(uuid)
         ON DELETE CASCADE
 );
+-- #    }
+-- #  }
+-- #  { query
+-- #    { ranks_of_player
+-- #      :player_uuid string
+SELECT ri.rank_id, ri.player_uuid, ri.expiration_date,
+       r.name AS rank_name,
+       p.username, p.display_name
+FROM RankInstances ri
+JOIN Players p
+ON ri.player_uuid = p.uuid
+JOIN Ranks r
+ON ri.rank_id = r.id
+WHERE ri.player_uuid = :player_uuid;
+-- #    }
+-- #    { players_of_rank
+-- #      :rank_id int
+SELECT ri.rank_id, ri.player_uuid, ri.expiration_date,
+       r.name AS rank_name,
+       p.username, p.display_name
+FROM RankInstances ri
+JOIN Players p
+ON ri.player_uuid = p.uuid
+JOIN Ranks r
+ON ri.rank_id = r.id
+WHERE ri.rank_id = :rank_id;
+-- #    }
+-- #  }
+-- #  { inheritance
+-- #    { create
+-- #      :child_id int
+-- #      :parent_id int
+INSERT INTO Inheritance (child_id, parent_id) VALUES (
+    :child_id, :parent_id
+);
+-- #    }
+-- #    { remove
+-- #      :child_id int
+-- #      :parent_id int
+DELETE FROM Inheritance
+WHERE child_id=:child_id
+    AND parent_id=:parent_id;
+-- #    }
+-- #    { list
+SELECT * FROM Inheritance;
 -- #    }
 -- #  }
 -- #  { ranks
@@ -54,95 +106,71 @@ DELETE FROM Ranks
 WHERE id = :id;
 -- #    }
 -- #    { list
-SELECT * FROM Ranks;
--- #    }
--- #    { get
--- #      :name string
-SELECT id FROM Ranks
-WHERE name = :name;
+SELECT id, name FROM Ranks;
 -- #    }
 -- #  }
 -- #  { permissions
--- #    { set
+-- #    { create
 -- #      :rank_id int
 -- #      :permission string
 REPLACE INTO RankPermissions VALUES(
     :rank_id, :permission
 );
 -- #    }
--- #    { unset
+-- #    { remove
 -- #      :rank_id int
 -- #      :permission string
-DELETE FROM RankPermissions rp
-WHERE rp.rank_id = :rank_id
-    AND rp.permission = :permission;
+DELETE FROM RankPermissions ri
+WHERE ri.rank_id = :rank_id
+    AND ri.permission = :permission;
 -- #    }
 -- #    { list
 -- #      :rank_id int
-SELECT rp.permission
-FROM RankPermissions rp
-WHERE rp.rank_id = :rank_id;
+SELECT ri.permission
+FROM RankPermissions ri
+WHERE ri.rank_id = :rank_id;
 -- #    }
 -- #  }
 -- #  { players
--- #    { set
+-- #    { create
 -- #      :player_uuid string
 -- #      :username string
 -- #      :display_name string
-REPLACE INTO Players VALUES(
+REPLACE INTO Players(uuid, username, display_name) VALUES(
     :player_uuid, :username, :display_name
 );
 -- #    }
--- #    { unset
+-- #    { remove
 -- #      :player_uuid string
 DELETE FROM Players p
-WHERE p.player_uuid = :player_uuid;
+WHERE p.uuid = :player_uuid;
 -- #    }
 -- #    { list
-SELECT * FROM Players p;
+SELECT uuid, username, display_name
+FROM Players p;
 -- #    }
 -- #  }
--- #  { rank_players
--- #    { set
+-- #  { rank_instances
+-- #    { create
 -- #      :rank_id int
 -- #      :player_uuid string
-REPLACE INTO RankPlayers VALUES(
-    :rank_id, :player_uuid
+-- #      :expiration_date string
+REPLACE INTO RankInstances(rank_id, player_uuid, expiration_date) VALUES(
+    :rank_id, :player_uuid, :expiration_date
 );
 -- #    }
--- #    { unset
+-- #    { remove
 -- #      :rank_id int
 -- #      :player_uuid string
-DELETE FROM RankPlayers rp
-WHERE rp.rank_id = :rank_id
-    AND rp.player_uuid = :player_uuid;
+DELETE FROM RankInstances ri
+WHERE ri.rank_id = :rank_id
+    AND ri.player_uuid = :player_uuid;
 -- #    }
 -- #    { clean_expired
 -- #      :time string
-DELETE FROM RankPlayers rp
-WHERE rp.expiration_date < :time
--- #    }
--- #    { list_ranks
--- #      :player_uuid string
-SELECT rp.rank_id
-FROM RankPlayers rp
-WHERE rp.player_uuid = :player_uuid;
--- #    }
--- #    { list_permissions
--- #      :player_uuid string
-SELECT rperms.permission
-FROM RankPlayers rplayers
-INNER JOIN RankPermissions rperms
-ON rplayers.rank_id = rperms.rank_id
-WHERE rplayers.player_uuid = :player_uuid;
--- #    }
--- #    { list_players
--- #      :rank_id int
-SELECT rp.player_uuid, p.username, p.display_name
-FROM RankPlayers rp
-JOIN Players p
-ON rp.player_uuid = p.player_uuid
-WHERE rp.rank_id = :rank_id;
+DELETE FROM RankInstances ri
+WHERE ri.expiration_date IS NOT NULL
+    AND ri.expiration_date <= :time
 -- #    }
 -- #  }
 -- #}

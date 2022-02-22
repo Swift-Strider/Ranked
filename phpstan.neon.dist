@@ -2,3 +2,5 @@ includes:
   - phpstan-baseline.neon
 parameters:
     level: 9
+    typeAliases:
+      AwaitValue: "'all'|'once'|'race'|'reject'|'resolve'|array{'resolve'}|Generator<mixed, mixed, mixed, mixed>|null"
