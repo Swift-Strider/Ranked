@@ -57,7 +57,7 @@ class CommandOverload extends Command implements PluginOwned
     public function __construct(
         CommandSettings $s,
         private ReflectionMethod $method,
-        private CommandBase $owner,
+        private OverloadedCommand $owner,
     ) {
         parent::__construct($s->getName(), $s->getDescription(), $s->getUsageMessage(), $s->getAliases());
         $this->setPermission($s->getPermission());

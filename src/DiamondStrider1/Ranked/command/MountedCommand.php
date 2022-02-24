@@ -43,7 +43,7 @@ class MountedCommand extends Command implements PluginOwned
 
     public function __construct(
         string $name,
-        private CommandBase $base,
+        private OverloadedCommand $base,
         private Plugin $plugin,
     ) {
         parent::__construct($name, $base->getCommandGroup()->getDescription());

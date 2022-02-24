@@ -26,39 +26,14 @@
 
 declare(strict_types=1);
 
-namespace DiamondStrider1\Ranked\ranks;
+namespace DiamondStrider1\Ranked\command;
 
-use DiamondStrider1\Ranked\command\AttributedCommandTrait;
 use DiamondStrider1\Ranked\command\attributes\CommandGroup;
-use DiamondStrider1\Ranked\command\attributes\CommandSettings;
-use DiamondStrider1\Ranked\command\OverloadedCommand;
-use pocketmine\command\CommandSender;
 
-#[CommandGroup(
-    description: 'Manage ranks on your server!',
-    permission: 'ranked.ranks.command'
-)]
-class RankCommand implements OverloadedCommand
+interface OverloadedCommand
 {
-    use AttributedCommandTrait;
+    public function getCommandGroup(): CommandGroup;
 
-    #[CommandSettings(
-        name: 'add',
-        permission: 'ranked.ranks.command.add',
-        description: 'Add a new rank to your server!',
-    )]
-    public function addRank(CommandSender $sender, string $name): void
-    {
-        $sender->sendMessage("add: {$name}");
-    }
-
-    #[CommandSettings(
-        name: 'remove',
-        permission: 'ranked.ranks.command.remove',
-        description: 'Remove a rank from your server!',
-    )]
-    public function removeRank(CommandSender $sender, string $name): void
-    {
-        $sender->sendMessage("remove: {$name}");
-    }
+    /** @return CommandOverload[] */
+    public function getOverloads(): array;
 }

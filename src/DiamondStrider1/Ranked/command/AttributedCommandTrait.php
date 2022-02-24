@@ -35,19 +35,31 @@ use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionMethod;
 
-abstract class CommandBase
+/**
+ * Implements OverloadedCommand via attributes defined on users.
+ *
+ * @see OverloadedCommand
+ */
+trait AttributedCommandTrait
 {
+    private ?CommandGroup $commandGroup = null;
+
     /** @var CommandOverload[] */
     private array $overloads;
 
     public function getCommandGroup(): CommandGroup
     {
-        $group = (new ReflectionClass(static::class))->getAttributes(CommandGroup::class)[0] ?? null;
-        if (null === $group) {
+        // Finds the CommandGroup that decorates the using class.
+        $this->commandGroup ??= ((new ReflectionClass(static::class))
+            ->getAttributes(CommandGroup::class)[0] ?? null)
+            ?->newInstance()
+        ;
+
+        if (null === $this->commandGroup) {
             throw new AssertionError(static::class.' is missing a CommandGroup attribute');
         }
 
-        return $group->newInstance();
+        return $this->commandGroup;
     }
 
     /** @return CommandOverload[] */
