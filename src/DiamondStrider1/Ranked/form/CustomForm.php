@@ -37,26 +37,10 @@ use pocketmine\promise\PromiseResolver;
 
 final class CustomForm
 {
-    private string $title;
+    use FormTrait;
 
     /** @var array<int, array<string, mixed>> */
     private array $content;
-
-    private function __construct()
-    {
-    }
-
-    public static function create(): self
-    {
-        return new self();
-    }
-
-    public function title(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
 
     public function label(string $text): self
     {
@@ -180,7 +164,7 @@ final class CustomForm
             }
         };
 
-        $form = new PromiseForm($formData, $resolver, $validator);
+        $form = new InternalForm($formData, $resolver, $validator);
 
         $player->sendForm($form);
 

@@ -36,27 +36,11 @@ use pocketmine\promise\PromiseResolver;
 
 final class MenuForm
 {
-    private string $title;
+    use FormTrait;
     private string $content;
 
     /** @var array<int, array{text: string, image?: array{type: string, data: string}}> */
     private array $buttons = [];
-
-    private function __construct()
-    {
-    }
-
-    public static function create(): self
-    {
-        return new self();
-    }
-
-    public function title(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
 
     public function content(string $content): self
     {
@@ -105,7 +89,7 @@ final class MenuForm
             }
         };
 
-        $form = new PromiseForm($formData, $resolver, $validator);
+        $form = new InternalForm($formData, $resolver, $validator);
 
         $player->sendForm($form);
 

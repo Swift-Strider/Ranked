@@ -37,7 +37,7 @@ use pocketmine\promise\PromiseResolver;
 /**
  * @template TValue
  */
-final class PromiseForm implements Form
+final class InternalForm implements Form
 {
     /**
      * @param array<string, mixed> $formData
