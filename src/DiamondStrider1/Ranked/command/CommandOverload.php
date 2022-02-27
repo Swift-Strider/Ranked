@@ -106,7 +106,7 @@ class CommandOverload extends Command implements PluginOwned
      */
     public function execute(CommandSender $sender, string $label, array $args): void
     {
-        if (!$this->testPermissionSilent($sender)) {
+        if (!$this->testPermission($sender)) {
             return;
         }
         if (self::TYPE_PLAYER === $this->type && !$sender instanceof Player) {

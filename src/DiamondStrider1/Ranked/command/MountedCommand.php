@@ -65,7 +65,7 @@ class MountedCommand extends Command implements PluginOwned
 
     public function execute(CommandSender $sender, string $label, array $args)
     {
-        if (!$this->testPermissionSilent($sender)) {
+        if (!$this->testPermission($sender)) {
             return;
         }
 
