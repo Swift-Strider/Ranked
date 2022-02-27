@@ -69,7 +69,7 @@ final class MenuForm
     }
 
     /**
-     * @phpstan-return Promise<int|null>
+     * @phpstan-return Promise<null|int>
      */
     public function sendPromise(Player $player): Promise
     {
@@ -99,7 +99,7 @@ final class MenuForm
     }
 
     /**
-     * @phpstan-return Generator<mixed, AwaitValue, mixed, int|null>
+     * @phpstan-return Generator<mixed, AwaitValue, mixed, null|int>
      */
     public function sendGenerator(Player $player): Generator
     {
