@@ -29,10 +29,12 @@ declare(strict_types=1);
 namespace DiamondStrider1\Ranked\form;
 
 use DomainException;
+use Generator;
 use pocketmine\form\FormValidationException;
 use pocketmine\player\Player;
 use pocketmine\promise\Promise;
 use pocketmine\promise\PromiseResolver;
+use SOFe\AwaitGenerator\Await;
 
 final class MenuForm
 {
@@ -69,7 +71,7 @@ final class MenuForm
     /**
      * @phpstan-return Promise<int|null>
      */
-    public function queryPlayer(Player $player): Promise
+    public function sendPromise(Player $player): Promise
     {
         if (!isset($this->title) || !isset($this->content)) {
             throw new DomainException('Some required properties have not been set!');
@@ -94,5 +96,20 @@ final class MenuForm
         $player->sendForm($form);
 
         return $resolver->getPromise();
+    }
+
+    /**
+     * @phpstan-return Generator<mixed, AwaitValue, mixed, int|null>
+     */
+    public function sendGenerator(Player $player): Generator
+    {
+        $this->sendPromise($player)
+            ->onCompletion(
+                yield Await::RESOLVE,
+                yield Await::REJECT
+            )
+        ;
+
+        return yield Await::ONCE;
     }
 }

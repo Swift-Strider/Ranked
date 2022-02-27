@@ -107,7 +107,7 @@ class MountedCommand extends Command implements PluginOwned
             $indexToNameMap[] = $name;
             $form->button("§2{$name}");
         }
-        $form->queryPlayer($sender)
+        $form->sendPromise($sender)
             ->onCompletion(
                 function ($response) use ($sender, $label, $args, $indexToNameMap): void {
                     if (null === $response) {

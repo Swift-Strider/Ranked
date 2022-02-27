@@ -156,7 +156,7 @@ class CommandOverload extends Command implements PluginOwned
             ->title("Running \"/{$label}\"")
             ->label('§c'.$e->getMessage())
             ->input('Fill in missing arguments here.')
-            ->queryPlayer($sender)
+            ->sendPromise($sender)
             ->onCompletion(function ($response) use ($sender, $label, $validParams, $remainingParams, $error) {
                 $value = $response[1] ?? null;
                 if (null === $value) {

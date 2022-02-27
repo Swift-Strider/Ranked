@@ -236,6 +236,51 @@ parameters:
 			path: src/DiamondStrider1/Ranked/database/QueryRunner.php
 
 		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\form\\\\CustomForm\\:\\:sendGenerator\\(\\) should return array\\<int, mixed\\>\\|null but returns mixed\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/form/CustomForm.php
+
+		-
+			message: "#^Parameter \\#1 \\$onSuccess of method pocketmine\\\\promise\\\\Promise\\<array\\<int, mixed\\>\\|null\\>\\:\\:onCompletion\\(\\) expects Closure\\(array\\<int, mixed\\>\\|null\\)\\: void, mixed given\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/form/CustomForm.php
+
+		-
+			message: "#^Parameter \\#2 \\$onFailure of method pocketmine\\\\promise\\\\Promise\\<array\\<int, mixed\\>\\|null\\>\\:\\:onCompletion\\(\\) expects Closure\\(\\)\\: void, mixed given\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/form/CustomForm.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\form\\\\MenuForm\\:\\:sendGenerator\\(\\) should return int\\|null but returns mixed\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/form/MenuForm.php
+
+		-
+			message: "#^Parameter \\#1 \\$onSuccess of method pocketmine\\\\promise\\\\Promise\\<int\\|null\\>\\:\\:onCompletion\\(\\) expects Closure\\(int\\|null\\)\\: void, mixed given\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/form/MenuForm.php
+
+		-
+			message: "#^Parameter \\#2 \\$onFailure of method pocketmine\\\\promise\\\\Promise\\<int\\|null\\>\\:\\:onCompletion\\(\\) expects Closure\\(\\)\\: void, mixed given\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/form/MenuForm.php
+
+		-
+			message: "#^Method DiamondStrider1\\\\Ranked\\\\form\\\\ModalForm\\:\\:sendGenerator\\(\\) should return bool but returns mixed\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/form/ModalForm.php
+
+		-
+			message: "#^Parameter \\#1 \\$onSuccess of method pocketmine\\\\promise\\\\Promise\\<bool\\>\\:\\:onCompletion\\(\\) expects Closure\\(bool\\)\\: void, mixed given\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/form/ModalForm.php
+
+		-
+			message: "#^Parameter \\#2 \\$onFailure of method pocketmine\\\\promise\\\\Promise\\<bool\\>\\:\\:onCompletion\\(\\) expects Closure\\(\\)\\: void, mixed given\\.$#"
+			count: 1
+			path: src/DiamondStrider1/Ranked/form/ModalForm.php
+
+		-
 			message: "#^Left side of && is always false\\.$#"
 			count: 1
 			path: src/DiamondStrider1/Ranked/language/Manager.php
