@@ -28,9 +28,6 @@ declare(strict_types=1);
 
 namespace DiamondStrider1\Ranked\form;
 
-use pocketmine\player\Player;
-use pocketmine\promise\Promise;
-
 trait FormTrait
 {
     private string $title;
@@ -50,6 +47,4 @@ trait FormTrait
 
         return $this;
     }
-
-    abstract public function queryPlayer(Player $player): Promise;
 }
